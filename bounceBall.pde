@@ -1,6 +1,3 @@
-
-  
-
 float speed = 0;
 float x = 0;
 float y = height/4;
@@ -21,4 +18,21 @@ void bounceBall()
   speed = gravity + speed;
   velocity+=0.0001 * mass;
   
+  if(y > height/2-(mass/2))
+  {
+    speed = speed * -0.87;
+    y = height/2-(mass/2);
+    count++;
+    if(count > 7)
+    {
+      speed = speed * -0.70;
+      gameState = 1;
+      
+    }
+  }
+  
+  if(x > width/4-(mass/2))
+  {
+    x = width/4-(mass/2);
+  } 
 }
