@@ -46,6 +46,25 @@ class Player extends GameObject
       ship.addChild(pod);
       ship.addChild(head);
       ship.addChild(wheel1);
-      ship.addChild(wheel2);
-     
+      ship.addChild(wheel2); 
   }
+  
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
+    shape(ship);
+    
+    popMatrix();
+    
+  }
+  
+  //Using newtons second law to apply force
+  
+  void update()
+  {
+    
+    
+  }
+  
+}

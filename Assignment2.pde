@@ -4,6 +4,9 @@ void setup()
    
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
+   
+   Player player1 = new Player(30, height-200, 2, 50, 'w', 's', 'a', 'd', ' ');
+   gameObjects.add(player1);
 }
 
 PImage img;
@@ -57,7 +60,17 @@ void draw()
       
     }
   }
+  
+}
 
-
+void running()
+{
+     for(int i = 0; i < gameObjects.size(); i++)
+    {
+      GameObject go = gameObjects.get(i);
+      go.render();
+     // go.update();
+      
+    }
   
 }
