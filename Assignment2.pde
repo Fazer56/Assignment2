@@ -6,6 +6,7 @@ void setup()
 }
 
 PFont font;
+int gameState = 0;
 
 void draw()
 {
