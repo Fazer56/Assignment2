@@ -1,8 +1,11 @@
 void setup()
 {
    size(1000, 800, P3D);
+   
+   font = loadFont("ARDELANEY-48.vlw");
 }
 
+PFont font;
 
 void draw()
 {
