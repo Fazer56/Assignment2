@@ -34,6 +34,29 @@ void draw()
     imgY = height/4;
   }
   
+  switch(gameState)
+  {
+    case 0 :
+    {
+      bounceBall();
+      break;
+    }
+    
+    case 1 :
+    {
+      menu();
+      break;
+      
+    }
+    
+    case 2 :
+    {
+      background(255,255,255);
+      running();
+      break;
+      
+    }
+  }
 
 
   
