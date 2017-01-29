@@ -33,3 +33,19 @@ class Player extends GameObject
     pVelocity = new PVector(0, 0);
     create();
   }
+  
+  void create()
+  {
+      ship = createShape(GROUP);
+      fill(255, 0, 0);
+      pod = createShape(ELLIPSE, 0, 0, 50, 50);
+      fill(0);
+      head = createShape(ARC, 5, - 5, 35, 35, radians(270), radians(360));
+      wheel1 = createShape(ELLIPSE, -10,  25, 10, 10);
+      wheel2 = createShape(ELLIPSE, 10,  25, 10, 10);
+      ship.addChild(pod);
+      ship.addChild(head);
+      ship.addChild(wheel1);
+      ship.addChild(wheel2);
+     
+  }
