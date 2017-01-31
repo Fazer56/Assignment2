@@ -89,7 +89,7 @@ void running()
     {
       GameObject go = gameObjects.get(i);
       go.render();
-     // go.update();
+      go.update();
       
     }
   

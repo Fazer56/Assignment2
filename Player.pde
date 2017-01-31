@@ -8,6 +8,7 @@ class Player extends GameObject
   PVector pGravity;
   PVector acceleration;
   PVector pVelocity;
+  PVector forward;
   float pMass;
   PVector pos;
   PShape pod;
@@ -32,8 +33,9 @@ class Player extends GameObject
     this.right = right;
     this.fire = fire;
     pos = new PVector(x, y);
-    jump = new PVector(0, -5*mass); //powerup will multiply mass by 3!
+    jump = new PVector(0, -.08*mass); //powerup will multiply mass by 3!
     pGravity = new PVector(0, 0);
+    forward = new PVector(3, 0);
     acceleration = new PVector(0, 0);
     pVelocity = new PVector(0, 0);
     create();
@@ -48,6 +50,7 @@ class Player extends GameObject
       head = createShape(ARC, 5, - 5, 55, 55, radians(270), radians(360));
       box = createShape(RECT, -78, -10, 40, 10);
       noFill();
+      strokeWeight(7);
       wheel1 = createShape(ELLIPSE, -20,  40, 30, 30);
       wheel2 = createShape(ELLIPSE, 20,  40, 30, 30);
       ship.addChild(box);
@@ -71,7 +74,9 @@ class Player extends GameObject
   void update()
   {
 
+      //for the wheels
       
+    
       if(checkKey(up))
       {
         
@@ -85,6 +90,22 @@ class Player extends GameObject
         pos.add(jump);  
         acceleration.mult(0);
       }
+      
+    if(checkKey(left))
+    {
+      pVelocity.add(acceleration);
+      forward.add(pVelocity);
+      pos.add(PVector.mult(forward, -1));
+      
+    }
+    
+    if(checkKey(right))
+    {
+      pVelocity.add(acceleration);
+      forward.add(pVelocity);
+      pos.add(forward);
+    }
+    
   }
   
 }
