@@ -5,16 +5,36 @@ void setup()
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
-   Player player1 = new Player(30, height-200, 2, 50, 'w', 's', 'a', 'd', ' ');
+   Player player1 = new Player(100, height-200, 2, 50, 'w', 's', 'a', 'd', ' ');
    gameObjects.add(player1);
 }
 
 PImage img;
 PFont font;
-int gameState = 0;
+int gameState = 2;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
+boolean[] keys = new boolean[1000];
+
+void keyPressed()
+{ 
+  keys[keyCode] = true;
+}
+
+void keyReleased()
+{
+  keys[keyCode] = false; 
+}
+
+boolean checkKey(int k)
+{
+  if (keys.length >= k) 
+  {
+    return keys[k] || keys[Character.toUpperCase(k)];  
+  }
+  return false;
+}
 
 void draw()
 {

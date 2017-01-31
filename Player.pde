@@ -15,6 +15,8 @@ class Player extends GameObject
   PShape body;
   PShape leg;
   PShape gun;
+  PShape lights;
+  PShape box;
   char up, down, left, right, fire;
   
   Player(float x, float y, int lives, float mass, char up, char down, char left, char right, char fire)
@@ -38,11 +40,14 @@ class Player extends GameObject
   {
       ship = createShape(GROUP);
       fill(255, 0, 0);
-      pod = createShape(ELLIPSE, 0, 0, 50, 50);
+      pod = createShape(ELLIPSE, 0, 0, 80, 80);
       fill(0);
-      head = createShape(ARC, 5, - 5, 35, 35, radians(270), radians(360));
-      wheel1 = createShape(ELLIPSE, -10,  25, 10, 10);
-      wheel2 = createShape(ELLIPSE, 10,  25, 10, 10);
+      head = createShape(ARC, 5, - 5, 55, 55, radians(270), radians(360));
+      box = createShape(RECT, -78, -10, 40, 10);
+      noFill();
+      wheel1 = createShape(ELLIPSE, -20,  40, 30, 30);
+      wheel2 = createShape(ELLIPSE, 20,  40, 30, 30);
+      ship.addChild(box);
       ship.addChild(pod);
       ship.addChild(head);
       ship.addChild(wheel1);
