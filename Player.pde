@@ -1,3 +1,6 @@
+boolean upCheck = false;
+boolean bounce = false;
+
 class Player extends GameObject
 {
   PVector jump;
@@ -59,7 +62,6 @@ class Player extends GameObject
     pushMatrix();
     translate(pos.x, pos.y);
     shape(ship);
-    
     popMatrix();
     
   }
@@ -68,8 +70,21 @@ class Player extends GameObject
   
   void update()
   {
-    
-    
+
+      
+      if(checkKey(up))
+      {
+        
+        bounce = true;
+      }
+      
+      if(bounce == true)
+      {
+        pVelocity.add(acceleration);
+        jump.add(pVelocity);
+        pos.add(jump);  
+        acceleration.mult(0);
+      }
   }
   
 }
