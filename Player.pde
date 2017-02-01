@@ -29,6 +29,7 @@ class Player extends GameObject
   PShape lights;
   PShape box;
   char up, down, left, right, fire;
+  int jumpTime;
   
   Player(float x, float y, int lives, float mass, char up, char down, char left, char right, char fire)
   {
@@ -45,6 +46,7 @@ class Player extends GameObject
     forward = new PVector(3, 0);
     acceleration = new PVector(0, 0);
     pVelocity = new PVector(0, 0);
+    jumpTime = 50;
     create();
   }
   
@@ -115,7 +117,7 @@ class Player extends GameObject
       
       if(checkKey(up))
       {
-        posY = pos.y;
+        //posY = pos.y;
         bounce = true;
       }
       
@@ -125,9 +127,10 @@ class Player extends GameObject
         jump.add(pVelocity);
         pos.add(jump);  
         acceleration.mult(0);
-        if(pos.y < posY - jHeight)
+        jumpTime-=1;
+        if(jumpTime < 0)
         {
-          pos.y = posY - jHeight;
+          bounce = false;
         }
         
       }

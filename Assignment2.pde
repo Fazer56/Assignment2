@@ -106,9 +106,7 @@ void running()
       gameObjects.add(c);
       
       //gameObjects.remove(c);
-        
      
-      
     }
   
 }
