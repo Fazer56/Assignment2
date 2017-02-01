@@ -128,7 +128,6 @@ class Player extends GameObject
         if(pos.y < posY - jHeight)
         {
           pos.y = posY - jHeight;
-          
         }
         
       }
@@ -150,7 +149,6 @@ class Player extends GameObject
       theta-=.5f;
     }
     
-    
     if(pos.x > 300)
     {
       if(frameCount % 240 == 0)
@@ -158,6 +156,13 @@ class Player extends GameObject
         Gun g = new Gun();
         g.pos = new PVector(random(pos.x + 100, pos.x + 200), random(pos. y - 10, pos.y - 30 ));
         gameObjects.add(g);
+      }
+      
+      if(frameCount % 480 == 0)
+      {
+        JetPack j = new JetPack();
+        j.pos = new PVector(random(pos.x + 150, pos.x + 250), random(pos. y - 10, pos.y - 30 ));
+        gameObjects.add(j);
       }
     }
     
