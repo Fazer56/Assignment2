@@ -92,15 +92,15 @@ class Player extends GameObject
       float cx;
       float cy;
       
-      cx = x + sin(theta)*r;
-      cy = y + cos(theta)*r;
+      cx = x1 + sin(theta)*r;
+      cy = y1 + cos(theta)*r;
       strokeWeight(3);
       stroke(0);
       println(x1);
       line(x1, cy + y1, cx + x2, y2);
       
-      /*
-        
+      
+  /*      
    float x =  width/2;
   float y = height/2;;
   
@@ -124,7 +124,7 @@ void draw()
   //line(cx, cy, 50, 50 );
   line(100, cy, cx, 100);
       
-      */
+    */  
     
       if(checkKey(up))
       {
@@ -155,6 +155,17 @@ void draw()
       forward.add(pVelocity);
       pos.add(forward);
       theta++;
+    }
+    
+    
+    if(pos.x > 300)
+    {
+      if(frameCount % 240 == 0)
+      {
+        Gun g = new Gun();
+        g.pos = new PVector(random(pos.x + 100, pos.x + 200), random(pos. y - 10, pos.y - 30 ));
+        gameObjects.add(g);
+      }
     }
     
   }
