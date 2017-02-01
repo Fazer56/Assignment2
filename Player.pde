@@ -119,15 +119,13 @@ class Player extends GameObject
       line(cx1 + 5 , cy1, pos.x - 25, pos.y + 40);
       line(cx1 , cy1, pos.x - 20, pos.y + 40);
       
-      if(upCheck == false)
-      {
-        if(checkKey(up) /*&& grav == false*/)
+        if(checkKey(up) && grav == false)
         {
           //posY = pos.y;
           bounce = true;
           upCheck = true;
         }
-      }
+     
       if(bounce == true)
       {
         pVelocity.add(acceleration);
