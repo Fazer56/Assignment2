@@ -78,7 +78,7 @@ void draw()
     
     case 2 :
     {
-      background(255,255,255);
+      background( 0, 0,255);
       running();
       break;
       
@@ -95,6 +95,13 @@ void running()
       go.render();
       go.update();
       
+    }
+    
+    if(frameCount % 0 == 0)
+    {
+      Level c = new Level();
+      c.pos =new PVector(random(25, width), random(25, height));
+      gameObjects.add(c);
     }
   
 }

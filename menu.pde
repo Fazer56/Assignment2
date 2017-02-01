@@ -24,9 +24,10 @@ class Menu extends GameObject
         fill(255,255,255);
         ellipse(width/2.5 - 10, height/2 + 40, 50, 50);
         fill(0);
+        gameObjects.remove(this);
         if(mousePressed == true)
         {
-          gameObjects.remove(this);
+          
           gameState = 2;
           
           
