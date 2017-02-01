@@ -77,58 +77,45 @@ class Player extends GameObject
   }
   
   //Using newtons second law to apply force
-
+  float jHeight = 120;
+  float posY = 0;
   
   void update()
   {
       
       //for the wheels
-      x1 = pos.x - 20;
+      x1 = pos.x + 20;
       y1 = pos.y + 40;
       
-      x2 = pos.x + 20;
+      x2 = pos.x - 20;
       y2 = pos.y + 40;
-      r =0;
+      r =15;
       float cx;
       float cy;
+      float cx1;
+      float cy1;
       
-      cx = x1 + sin(theta)*r;
-      cy = y1 + cos(theta)*r;
+      cx = sin(theta)*r + x1;
+      cy = cos(theta)*r + y1;
+      cx1 = sin(theta)*r + x2;
+      cy1 = cos(theta)*r + y2;
       strokeWeight(3);
       stroke(0);
       println(x1);
-      line(x1, cy + y1, cx + x2, y2);
+      println(cx);
+     
+      line(cx , cy, pos.x + 20, pos.y + 40);
+      line(cx + 5, cy1, pos.x - 20, pos.y + 40);
+      line(cx + 5 , cy1, pos.x - 25, pos.y + 40);
+      line(cx , cy1, pos.x - 20, pos.y + 40);
+      line(cx1 , cy1, pos.x - 20, pos.y + 40);
+      line(cx1 + 5, cy1, pos.x - 20, pos.y + 40);
+      line(cx1 + 5 , cy1, pos.x - 25, pos.y + 40);
+      line(cx1 , cy1, pos.x - 20, pos.y + 40);
       
-      
-  /*      
-   float x =  width/2;
-  float y = height/2;;
-  
-float theta = 360;
- float r = 30;
- 
-void draw()
-{
-  background(0);
-  
-    
-  
-
- 
-  
-  
-  stroke(255,255,255);
-  strokeWeight(3);
-  //pushMatrix();
-  //translate(cx, cy);
-  //line(cx, cy, 50, 50 );
-  line(100, cy, cx, 100);
-      
-    */  
-    
       if(checkKey(up))
       {
-        
+        posY = pos.y;
         bounce = true;
       }
       
@@ -138,6 +125,12 @@ void draw()
         jump.add(pVelocity);
         pos.add(jump);  
         acceleration.mult(0);
+        if(pos.y < posY - jHeight)
+        {
+          pos.y = posY - jHeight;
+          
+        }
+        
       }
       
     if(checkKey(left))
@@ -145,7 +138,7 @@ void draw()
       pVelocity.add(acceleration);
       forward.add(pVelocity);
       pos.add(PVector.mult(forward, -1));
-      theta--;
+      theta+=.5f;
       
     }
     
@@ -154,7 +147,7 @@ void draw()
       pVelocity.add(acceleration);
       forward.add(pVelocity);
       pos.add(forward);
-      theta++;
+      theta-=.5f;
     }
     
     
