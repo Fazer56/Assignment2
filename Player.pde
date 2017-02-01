@@ -1,15 +1,22 @@
 boolean upCheck = false;
 boolean bounce = false;
 
+float x1;
+float y1;
+float x2;
+float y2;
+
 class Player extends GameObject
 {
+  float theta;
+  float r;
   PVector jump;
   int lives;
   PVector pGravity;
   PVector acceleration;
   PVector pVelocity;
   PVector forward;
-  float pMass;
+  float pMass; 
   PVector pos;
   PShape pod;
   PShape ship;
@@ -70,12 +77,54 @@ class Player extends GameObject
   }
   
   //Using newtons second law to apply force
+
   
   void update()
   {
-
-      //for the wheels
       
+      //for the wheels
+      x1 = pos.x - 20;
+      y1 = pos.y + 40;
+      
+      x2 = pos.x + 20;
+      y2 = pos.y + 40;
+      r =0;
+      float cx;
+      float cy;
+      
+      cx = x + sin(theta)*r;
+      cy = y + cos(theta)*r;
+      strokeWeight(3);
+      stroke(0);
+      println(x1);
+      line(x1, cy + y1, cx + x2, y2);
+      
+      /*
+        
+   float x =  width/2;
+  float y = height/2;;
+  
+float theta = 360;
+ float r = 30;
+ 
+void draw()
+{
+  background(0);
+  
+    
+  
+
+ 
+  
+  
+  stroke(255,255,255);
+  strokeWeight(3);
+  //pushMatrix();
+  //translate(cx, cy);
+  //line(cx, cy, 50, 50 );
+  line(100, cy, cx, 100);
+      
+      */
     
       if(checkKey(up))
       {
@@ -96,6 +145,7 @@ class Player extends GameObject
       pVelocity.add(acceleration);
       forward.add(pVelocity);
       pos.add(PVector.mult(forward, -1));
+      theta--;
       
     }
     
@@ -104,6 +154,7 @@ class Player extends GameObject
       pVelocity.add(acceleration);
       forward.add(pVelocity);
       pos.add(forward);
+      theta++;
     }
     
   }
