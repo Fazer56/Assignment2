@@ -35,8 +35,7 @@ class Gun extends GameObject implements Powerup
     gun.addChild(middle);
     gun.addChild(front);
     shape(gun);
-    popMatrix();
-     
+    popMatrix(); 
   }
   
   void update()

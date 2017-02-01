@@ -1,7 +1,7 @@
 void setup()
 {
-   size(1000, 800, P3D);
-   
+   //size(1000, 800, P3D);
+   fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
@@ -13,7 +13,7 @@ void setup()
 
 PImage img;
 PFont font;
-int gameState = 0;
+int gameState = 2;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
@@ -97,11 +97,18 @@ void running()
       
     }
     
-    if(frameCount % 0 == 0)
+    if(frameCount % 60 == 0)
     {
       Level c = new Level();
-      c.pos =new PVector(random(25, width), random(25, height));
+      GameObject go = gameObjects.get(0);
+      Player player = (Player) go;
+      c.pos =new PVector(player.pos.x + 1800, random(25, height/3));
       gameObjects.add(c);
+      
+      //gameObjects.remove(c);
+        
+     
+      
     }
   
 }

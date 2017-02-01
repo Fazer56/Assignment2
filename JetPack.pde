@@ -48,6 +48,9 @@ class JetPack extends GameObject
     stroke(255, 150, 0);
     line(pos.x -10, pos.y + 15, pos.x-10, pos.y + 20);
     line(pos.x +10, pos.y + 15, pos.x + 10, pos.y + 20);
+    
+    pos.x+=random(-2, 2);
+    pos.y+=random(-2, 2);
     stroke(0);
     strokeWeight(3);
   }
