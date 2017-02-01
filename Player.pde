@@ -1,5 +1,7 @@
 boolean upCheck = false;
 boolean bounce = false;
+boolean grav = false;
+
 
 float x1;
 float y1;
@@ -30,6 +32,7 @@ class Player extends GameObject
   PShape box;
   char up, down, left, right, fire;
   int jumpTime;
+  int gravTime;
   
   Player(float x, float y, int lives, float mass, char up, char down, char left, char right, char fire)
   {
@@ -41,12 +44,13 @@ class Player extends GameObject
     this.right = right;
     this.fire = fire;
     pos = new PVector(x, y);
-    jump = new PVector(0, -.08*mass); //powerup will multiply mass by 3!
-    pGravity = new PVector(0, 0);
+    jump = new PVector(0, -.12*mass); //powerup will multiply mass by 3!
+    pGravity = new PVector(0, 0.008*mass);
     forward = new PVector(3, 0);
     acceleration = new PVector(0, 0);
     pVelocity = new PVector(0, 0);
-    jumpTime = 50;
+    jumpTime = 30;
+    gravTime = 5;
     create();
   }
   
@@ -115,12 +119,15 @@ class Player extends GameObject
       line(cx1 + 5 , cy1, pos.x - 25, pos.y + 40);
       line(cx1 , cy1, pos.x - 20, pos.y + 40);
       
-      if(checkKey(up))
+      if(upCheck == false)
       {
-        //posY = pos.y;
-        bounce = true;
+        if(checkKey(up) /*&& grav == false*/)
+        {
+          //posY = pos.y;
+          bounce = true;
+          upCheck = true;
+        }
       }
-      
       if(bounce == true)
       {
         pVelocity.add(acceleration);
@@ -131,9 +138,47 @@ class Player extends GameObject
         if(jumpTime < 0)
         {
           bounce = false;
+          grav = true;
+          jumpTime = 30;
         }
-        
       }
+      
+      if(grav == true && pos.y < height- 100)
+       {
+         /*println("piss");
+         PVector g = PVector.div(pGravity, mass);
+         acceleration.add(g);
+         pos.add(acceleration); 
+         gravTime-=1;
+         if(pos.y > height - 100)
+         {
+           acceleration.mult(0);
+           println("cunt");
+           grav = false;
+           acceleration.x = 0;
+           acceleration.y = 0;
+          // acceleration.mult(0);
+         }
+         */
+         
+         pos.y+=5;
+         
+         if(pos.y < height -100)
+         {
+           upCheck = false;
+           
+         }
+         
+         
+       } 
+       else
+       {
+         grav = false;
+         
+         
+       }
+       
+      
       
     if(checkKey(left))
     {
@@ -141,7 +186,6 @@ class Player extends GameObject
       forward.add(pVelocity);
       pos.add(PVector.mult(forward, -1));
       theta+=.5f;
-      
     }
     
     if(checkKey(right))

@@ -1,7 +1,7 @@
 void setup()
 {
-   //size(1000, 800, P3D);
-   fullScreen(P3D);
+   size(1000, 800, P3D);
+   //fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
