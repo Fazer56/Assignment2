@@ -6,12 +6,14 @@ void setup()
    img = loadImage("BounceFinal.png");
    
    Player player1 = new Player(100, height-200, 2, 50, 'w', 's', 'a', 'd', ' ');
+   
    gameObjects.add(player1);
+  
 }
 
 PImage img;
 PFont font;
-int gameState = 2;
+int gameState = 0;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
@@ -67,7 +69,9 @@ void draw()
     
     case 1 :
     {
-      menu();
+      Menu  m = new Menu();
+       gameObjects.add(m);
+       m.render();
       break;
       
     }
