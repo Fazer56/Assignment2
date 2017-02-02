@@ -13,7 +13,7 @@ class Level extends GameObject
   
   Level()
   {
-    timeTolive = 5*600;
+    timeTolive = 600;
     direction = (int) random(0, 1);
   }
   

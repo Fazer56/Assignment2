@@ -59,7 +59,6 @@ class Player extends GameObject
     forward = new PVector(3, 0);
     acceleration = new PVector(0, 0);
     pVelocity = new PVector(0, 0);
-    aim = new PVector(0, -1);
     
     create();
   }
@@ -70,7 +69,7 @@ class Player extends GameObject
       fill(255, 0, 0);
       pod = createShape(RECT, -35, -55, mass, mass);
       fill(0);
-      body = createShape(RECT, 30, -30, mass, mass/1.5);
+      body = createShape(RECT, 30, -30, mass-30, mass/1.5);
       head = createShape(ARC, 10, - 50, mass-25, mass-25, radians(180), radians(360));
       box = createShape(RECT, -78, -20, mass/2, mass/10);
       noFill();
@@ -163,7 +162,7 @@ class Player extends GameObject
         }
       }
       
-      if(grav == true && pos.y < height- 100)
+      if(grav == true && pos.y < height- 150)
        {
          /*println("piss");
          PVector g = PVector.div(pGravity, mass);
@@ -183,7 +182,7 @@ class Player extends GameObject
          
          pos.y+=5;
          
-         if(pos.y < height -100)
+         if(pos.y < height -150)
          {
            upCheck = false;
            
@@ -216,6 +215,14 @@ class Player extends GameObject
       theta-=.5f;
     }
     
+    if(checkKey(fire) && ammo > 0)
+    {
+
+      Bullet b = new Bullet(pos.x, pos.y - 90, 0, 10, 300);
+      gameObjects.add(b);
+      ammo--;
+    }
+    
 
     for(int i = 0 ; i < gameObjects.size() ; i ++)
     {
@@ -233,20 +240,14 @@ class Player extends GameObject
       }
     }
     
-    aim.x = sin(aimTheta) + mouseX;
-    aim.y = -cos(aimTheta) + mouseY;
+    //aim.x = sin(aimTheta) + mouseX;
+   // aim.y = -cos(aimTheta) + mouseY;
     
     if(this.ammo > 0)
     {
-      Gun g = new Gun(pos.x, pos.y - 70);
+    
+      Gun g = new Gun(pos.x, pos.y - 90);
       
-      float mousex = mouseX;
-      float mousey = mouseY;
-      
-      mousex = mousex - g.pos.x;
-      mousey = mousey - g.pos.y;
-      g.pos.x = mousex;
-      g.pos.y = mousey;
       gameObjects.add(g);
       
     }

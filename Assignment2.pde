@@ -1,13 +1,20 @@
 void setup()
 {
-   size(1000, 800, P3D);
-   //fullScreen(P3D);
+   //size(1000, 800, P3D);
+   fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
-   Player player1 = new Player(100, height-150, 2, 0, 0, 80, 'w', 's', 'a', 'd', ' ');
-   
+   Player player1 = new Player(100, height-150, 2, 0, 0, 80, 'w', ' ', 'a', 'd', 's');
+   Block b = new Block(player1.pos.x - 100, player1.pos.y + 55, 100, 50);
+   Block b1 = new Block(b.pos.x + b.blockW, player1.pos.y + 55, 100, 50);
+   Block b2 = new Block(b1.pos.x + b.blockW, player1.pos.y + 55, 100, 50);
+   Block b3 = new Block(b2.pos.x + b.blockW, player1.pos.y + 55, 100, 50);
    gameObjects.add(player1);
+   gameObjects.add(b);
+   gameObjects.add(b1);
+   gameObjects.add(b2);
+   gameObjects.add(b3);
   
 }
 
@@ -78,7 +85,7 @@ void draw()
     
     case 2 :
     {
-      background( 0, 0,255);
+      background( 20, 120,255);
       running();
       break;
       
@@ -97,17 +104,15 @@ void running()
       
     }
     
-   /* if(frameCount % 60 == 0)
+    if(frameCount % 120 == 0)
     {
       Level c = new Level();
-      GameObject go = gameObjects.get(0);
-      Player player = (Player) go;
-      c.pos =new PVector(player.pos.x + 1800, random(25, height/3));
+      c.pos =new PVector(random(width), random(25, height/3));
       gameObjects.add(c);
       
       //gameObjects.remove(c);
      
-    }*/
+    }
     
   if (frameCount % 240 == 0)
   {

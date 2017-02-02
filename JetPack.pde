@@ -15,6 +15,12 @@ class JetPack extends GameObject implements Powerup
   
   void applyTo(Player p)
   {
+    p.pos.y--;
+    if(pos.y > height - 500)
+    {
+      pos.y = height - 500;
+      
+    }
   }
   
   void render()

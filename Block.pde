@@ -21,23 +21,15 @@ class Block extends GameObject
     translate(pos.x, pos.y);
     fill(0,255,0);
     rect(0, 0, blockW, blockH);
+    fill(152,89,60);
+    rect(0, blockH, blockW, blockH);
     popMatrix();
     
   }
   
   void update()
   {
-    
-    for(int i = 0; i < gameObjects.size(); i++)
-    {
-      GameObject go = gameObjects.get(i);
-      if(go instanceof Block)
-      {
         
-      }
-       
-    }
-    
   }
   
   
