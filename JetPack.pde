@@ -1,4 +1,4 @@
-class JetPack extends GameObject
+class JetPack extends GameObject implements Powerup
 {
   PShape gun;
   PShape back;
@@ -6,6 +6,16 @@ class JetPack extends GameObject
   PShape front;
   PShape tail;
   PShape tail1;
+   int timeTolive;
+  
+  JetPack()
+  {
+    timeTolive = 300;
+  }
+  
+  void applyTo(Player p)
+  {
+  }
   
   void render()
   {
@@ -51,6 +61,12 @@ class JetPack extends GameObject
     
     pos.x+=random(-2, 2);
     pos.y+=random(-2, 2);
+    timeTolive--;
+    if(timeTolive < 0)
+    {
+      gameObjects.remove(this);
+      
+    }
     stroke(0);
     strokeWeight(3);
   }

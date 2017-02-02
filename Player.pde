@@ -11,6 +11,7 @@ float y2;
 class Player extends GameObject
 {
   float theta;
+  float aimTheta;
   float r;
   PVector jump;
   int lives;
@@ -18,6 +19,7 @@ class Player extends GameObject
   PVector acceleration;
   PVector pVelocity;
   PVector forward;
+  PVector aim;
   float pMass; 
   PVector pos;
   PShape pod;
@@ -33,8 +35,10 @@ class Player extends GameObject
   char up, down, left, right, fire;
   int jumpTime;
   int gravTime;
+  int ammo;
+  int health;
   
-  Player(float x, float y, int lives, float mass, char up, char down, char left, char right, char fire)
+  Player(float x, float y, int lives, float theta, float aimTheta, float mass, char up, char down, char left, char right, char fire)
   {
     this.pMass = mass;
     this.lives = lives;
@@ -43,14 +47,20 @@ class Player extends GameObject
     this.left = left;
     this.right = right;
     this.fire = fire;
+    this.jumpTime = 30;
+    this.gravTime = 5;
+    this.theta = theta;
+    this.aimTheta = aimTheta;
+    this.ammo = 0;
+    this.health = 100;
     pos = new PVector(x, y);
     jump = new PVector(0, -.12*mass); //powerup will multiply mass by 3!
     pGravity = new PVector(0, 0.008*mass);
     forward = new PVector(3, 0);
     acceleration = new PVector(0, 0);
     pVelocity = new PVector(0, 0);
-    jumpTime = 30;
-    gravTime = 5;
+    aim = new PVector(0, -1);
+    
     create();
   }
   
@@ -58,17 +68,19 @@ class Player extends GameObject
   {
       ship = createShape(GROUP);
       fill(255, 0, 0);
-      pod = createShape(ELLIPSE, 0, 0, 80, 80);
+      pod = createShape(RECT, -35, -55, mass, mass);
       fill(0);
-      head = createShape(ARC, 5, - 5, 55, 55, radians(270), radians(360));
-      box = createShape(RECT, -78, -10, 40, 10);
+      body = createShape(RECT, 30, -30, mass, mass/1.5);
+      head = createShape(ARC, 10, - 50, mass-25, mass-25, radians(180), radians(360));
+      box = createShape(RECT, -78, -20, mass/2, mass/10);
       noFill();
       strokeWeight(7);
-      wheel1 = createShape(ELLIPSE, -20,  40, 30, 30);
-      wheel2 = createShape(ELLIPSE, 20,  40, 30, 30);
+      wheel1 = createShape(ELLIPSE, -20,  45, mass-70, mass-70);
+      wheel2 = createShape(ELLIPSE, 40,  45, mass-70, mass-70);
       ship.addChild(box);
       ship.addChild(pod);
       ship.addChild(head);
+      ship.addChild(body);
       ship.addChild(wheel1);
       ship.addChild(wheel2); 
   }
@@ -77,6 +89,9 @@ class Player extends GameObject
   {
     pushMatrix();
     translate(pos.x, pos.y);
+    textSize(20);
+    text("Health " + health, 0, -500);
+    text("Ammo " + ammo, 0, -550);
     shape(ship);
     popMatrix();
     
@@ -90,11 +105,11 @@ class Player extends GameObject
   {
       
       //for the wheels
-      x1 = pos.x + 20;
-      y1 = pos.y + 40;
+      x1 = pos.x + 40;
+      y1 = pos.y + 45;
       
-      x2 = pos.x - 20;
-      y2 = pos.y + 40;
+      x2 = pos.x - 30;
+      y2 = pos.y + 45;
       r =15;
       float cx;
       float cy;
@@ -110,14 +125,14 @@ class Player extends GameObject
       println(x1);
       println(cx);
      
-      line(cx , cy, pos.x + 20, pos.y + 40);
-      line(cx + 5, cy1, pos.x - 20, pos.y + 40);
-      line(cx + 5 , cy1, pos.x - 25, pos.y + 40);
-      line(cx , cy1, pos.x - 20, pos.y + 40);
-      line(cx1 , cy1, pos.x - 20, pos.y + 40);
-      line(cx1 + 5, cy1, pos.x - 20, pos.y + 40);
-      line(cx1 + 5 , cy1, pos.x - 25, pos.y + 40);
-      line(cx1 , cy1, pos.x - 20, pos.y + 40);
+      line(cx , cy, pos.x + 30, pos.y + 40);
+      line(cx + 5, cy1, pos.x - 25, pos.y + 40);
+      line(cx + 5 , cy1, pos.x - 35, pos.y + 40);
+      line(cx , cy1, pos.x - 25, pos.y + 40);
+      line(cx1 , cy1, pos.x - 30, pos.y + 40);
+      line(cx1 + 5, cy1, pos.x - 30, pos.y + 40);
+      line(cx1 + 5 , cy1, pos.x - 35, pos.y + 40);
+      line(cx1 , cy1, pos.x - 30, pos.y + 40);
       
         if(checkKey(up) && grav == false)
         {
@@ -133,6 +148,13 @@ class Player extends GameObject
         pos.add(jump);  
         acceleration.mult(0);
         jumpTime-=1;
+        float spring = 10;
+        for(int i = 0; i < 5; i++)
+        {
+          ellipse(pos.x, pos.y + (40 + spring), 15, 10);
+          spring+=10;
+        }
+        
         if(jumpTime < 0)
         {
           bounce = false;
@@ -194,21 +216,39 @@ class Player extends GameObject
       theta-=.5f;
     }
     
-    if(pos.x > 300)
+
+    for(int i = 0 ; i < gameObjects.size() ; i ++)
     {
-      if(frameCount % 240 == 0)
+      GameObject go = gameObjects.get(i);
+      if (go instanceof Powerup)
       {
-        Gun g = new Gun();
-        g.pos = new PVector(random(pos.x + 100, pos.x + 200), random(pos. y - 10, pos.y - 30 ));
-        gameObjects.add(g);
+        Powerup p = (Powerup) go;
+         if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < mass + 5)
+        {
+          p.applyTo(this);
+          gameObjects.remove(go);
+          
+        }
+        
       }
+    }
+    
+    aim.x = sin(aimTheta) + mouseX;
+    aim.y = -cos(aimTheta) + mouseY;
+    
+    if(this.ammo > 0)
+    {
+      Gun g = new Gun(pos.x, pos.y - 70);
       
-      if(frameCount % 480 == 0)
-      {
-        JetPack j = new JetPack();
-        j.pos = new PVector(random(pos.x + 150, pos.x + 250), random(pos. y - 10, pos.y - 30 ));
-        gameObjects.add(j);
-      }
+      float mousex = mouseX;
+      float mousey = mouseY;
+      
+      mousex = mousex - g.pos.x;
+      mousey = mousey - g.pos.y;
+      g.pos.x = mousex;
+      g.pos.y = mousey;
+      gameObjects.add(g);
+      
     }
     
   }

@@ -5,7 +5,7 @@ void setup()
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
-   Player player1 = new Player(100, height-200, 2, 50, 'w', 's', 'a', 'd', ' ');
+   Player player1 = new Player(100, height-150, 2, 0, 0, 80, 'w', 's', 'a', 'd', ' ');
    
    gameObjects.add(player1);
   
@@ -97,7 +97,7 @@ void running()
       
     }
     
-    if(frameCount % 60 == 0)
+   /* if(frameCount % 60 == 0)
     {
       Level c = new Level();
       GameObject go = gameObjects.get(0);
@@ -107,6 +107,20 @@ void running()
       
       //gameObjects.remove(c);
      
-    }
+    }*/
+    
+  if (frameCount % 240 == 0)
+  {
+    Gun ammo = new Gun();
+    ammo.pos = new PVector(random(0, width), random(height - 200, height - 350));
+    gameObjects.add(ammo);
+  }
+  
+  if(frameCount % 480 == 0)
+  {
+    JetPack j = new JetPack();
+    j.pos = new PVector(random(300, width + 500), random(height -200, height -150));
+    gameObjects.add(j);
+  }
   
 }
