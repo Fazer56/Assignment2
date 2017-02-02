@@ -91,7 +91,7 @@ class Player extends GameObject
   {
     pushMatrix();
     translate(pos.x, pos.y);
-    textSize(20);
+    textSize(30);
     text("Health " + health, 0, -500);
     text("Ammo " + ammo, 0, -530);
     text("Jet Fuel " + jetFuel, 0, -560);
@@ -138,13 +138,13 @@ class Player extends GameObject
       line(cx1 + 5 , cy1, pos.x - 35, pos.y + 40);
       line(cx1 , cy1, pos.x - 30, pos.y + 40);
       
-        if(checkKey(up) && grav == false)
-        {
-          //posY = pos.y;
-          bounce = true;
-          upCheck = true;
-        }
-     
+      if(checkKey(up) && grav == false)
+      {
+       
+        bounce = true;
+       
+      }
+   
       if(bounce == true)
       {
         pVelocity.add(acceleration);
@@ -186,13 +186,6 @@ class Player extends GameObject
          */
          
          pos.y+=5;
-         
-         if(pos.y < height -150)
-         {
-           upCheck = false;
-           
-         }
-         
          
        } 
        else
@@ -240,7 +233,41 @@ class Player extends GameObject
         }
         
       }
-    }
+      
+      if(go instanceof Block)
+      {
+        Block b = (Block) go;
+        if(bounce == false && grav == false && jetFuel <= 0)
+        {
+
+            /*PVector g = PVector.div(pGravity, mass);
+             acceleration.add(g);
+             pos.add(acceleration);*/
+             
+             if(this.pos.y >= go.pos.y-35)
+             {
+              
+                this.pos.y = go.pos.y-35;
+                grav = false;
+                upCheck = false;
+                acceleration.mult(0);  
+                    
+             } 
+                       
+             if(this.pos.x >= go.pos.x && (this.pos.y + 26 >= (go.pos.y) || this.pos.y <= go.pos.y) && pos.x < go.pos.x+ 100)
+             {
+                this.pos.y = go.pos.y - 35;
+                //grav = false;
+                println(this.pos.y);
+                println(go.pos.y);
+          
+              }
+          }
+        }
+        
+      }
+      
+    
     
     if(jetFuel > 0)
     {
@@ -248,6 +275,10 @@ class Player extends GameObject
         jump.add(pVelocity);
         pos.add(jump);  
         acceleration.mult(0);
+        
+        JetPack j = new JetPack(pos.x - 60, pos.y + 20);
+        gameObjects.add(j);
+        
         if(pos.y < height - 300)
         {
           pos.y = height - 300;
@@ -255,6 +286,7 @@ class Player extends GameObject
         }
        jetFuel--;
     }
+
     
     if(this.ammo > 0)
     {

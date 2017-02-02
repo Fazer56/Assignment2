@@ -20,7 +20,7 @@ void setup()
 
 PImage img;
 PFont font;
-int gameState = 2;
+int gameState = 0;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
