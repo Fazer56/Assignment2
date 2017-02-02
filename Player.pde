@@ -1,7 +1,7 @@
 boolean upCheck = false;
 boolean bounce = false;
 boolean grav = false;
-
+boolean jetPack = false;
 
 float x1;
 float y1;
@@ -37,6 +37,7 @@ class Player extends GameObject
   int gravTime;
   int ammo;
   int health;
+  int jetFuel;
   
   Player(float x, float y, int lives, float theta, float aimTheta, float mass, char up, char down, char left, char right, char fire)
   {
@@ -48,6 +49,7 @@ class Player extends GameObject
     this.right = right;
     this.fire = fire;
     this.jumpTime = 30;
+    this.jetFuel = 0;
     this.gravTime = 5;
     this.theta = theta;
     this.aimTheta = aimTheta;
@@ -84,13 +86,16 @@ class Player extends GameObject
       ship.addChild(wheel2); 
   }
   
+  
   void render()
   {
     pushMatrix();
     translate(pos.x, pos.y);
     textSize(20);
     text("Health " + health, 0, -500);
-    text("Ammo " + ammo, 0, -550);
+    text("Ammo " + ammo, 0, -530);
+    text("Jet Fuel " + jetFuel, 0, -560);
+    
     shape(ship);
     popMatrix();
     
@@ -193,12 +198,9 @@ class Player extends GameObject
        else
        {
          grav = false;
-         
-         
+           
        }
        
-      
-      
     if(checkKey(left))
     {
       pVelocity.add(acceleration);
@@ -240,8 +242,19 @@ class Player extends GameObject
       }
     }
     
-    //aim.x = sin(aimTheta) + mouseX;
-   // aim.y = -cos(aimTheta) + mouseY;
+    if(jetFuel > 0)
+    {
+        pVelocity.add(acceleration);
+        jump.add(pVelocity);
+        pos.add(jump);  
+        acceleration.mult(0);
+        if(pos.y < height - 300)
+        {
+          pos.y = height - 300;
+          
+        }
+       jetFuel--;
+    }
     
     if(this.ammo > 0)
     {

@@ -13,14 +13,14 @@ class JetPack extends GameObject implements Powerup
     timeTolive = 300;
   }
   
+  JetPack(float x, float y)
+  {
+    pos = new PVector(x, y);
+  }
+  
   void applyTo(Player p)
   {
-    p.pos.y--;
-    if(pos.y > height - 500)
-    {
-      pos.y = height - 500;
-      
-    }
+    p.jetFuel+=600;
   }
   
   void render()
