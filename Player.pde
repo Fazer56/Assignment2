@@ -216,6 +216,7 @@ class Player extends GameObject
       Bullet b = new Bullet(pos.x, pos.y - 90, 0, 10, 300);
       gameObjects.add(b);
       ammo--;
+
     }
     
 
@@ -256,7 +257,7 @@ class Player extends GameObject
                        
              if(this.pos.x >= go.pos.x && (this.pos.y + 26 >= (go.pos.y) || this.pos.y <= go.pos.y) && pos.x < go.pos.x+ 100)
              {
-                this.pos.y = go.pos.y - 35;
+                this.pos.y = go.pos.y - 55;
                 //grav = false;
                 println(this.pos.y);
                 println(go.pos.y);
@@ -292,7 +293,11 @@ class Player extends GameObject
     {
     
       Gun g = new Gun(pos.x, pos.y - 90);
-      
+      stroke(38, 179, 10);
+      line(pos.x, pos.y-90, mouseX, mouseY);
+      noCursor();
+      ellipse(mouseX, mouseY, 10, 10);
+      stroke(0);
       gameObjects.add(g);
       
     }
