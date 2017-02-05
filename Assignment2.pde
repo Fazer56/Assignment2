@@ -10,11 +10,13 @@ void setup()
    Block b1 = new Block(b.pos.x + b.blockW, player1.pos.y + 180, 100, 50);
    Block b2 = new Block(b1.pos.x + b.blockW, player1.pos.y + 180, 100, 50);
    Block b3 = new Block(b2.pos.x + b.blockW, player1.pos.y + 180, 100, 50);
+    Block b4 = new Block(b3.pos.x + b.blockW, player1.pos.y + 130, 100, 50);
    gameObjects.add(player1);
    gameObjects.add(b);
    gameObjects.add(b1);
    gameObjects.add(b2);
    gameObjects.add(b3);
+   gameObjects.add(b4);
   
 }
 

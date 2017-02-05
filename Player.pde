@@ -248,7 +248,7 @@ class Player extends GameObject
       if(go instanceof Block)
       {
         Block b = (Block) go;
-        if(grav == true && jetFuel <= 0 && pos.y <= go.pos.y - 200)
+        if(grav == true && jetFuel <= 0 && pos.y <= go.pos.y - 180)
         {
 
          println("piss");
@@ -268,6 +268,10 @@ class Player extends GameObject
          */
          
            pos.y+=5;
+           if(this.pos.y >= go.pos.y + 180 && this.pos.x)
+           {
+             this.pos.y = go.pos.y-180;
+           }
          
          } 
          else
@@ -279,8 +283,7 @@ class Player extends GameObject
             /* if(this.pos.y >= go.pos.y -350)
              {
               
-                this.pos.y = go.pos.y-230;
-                grav = false;
+                
                 upCheck = false;
                 acceleration.mult(0);  
                     
