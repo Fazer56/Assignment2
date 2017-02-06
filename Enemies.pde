@@ -48,6 +48,8 @@ class Enemy extends GameObject
           gameObjects.add(bl);
           gameObjects.remove(this);
           gameObjects.remove(go);
+          scream.rewind();
+          scream.play();
           
         }
       }

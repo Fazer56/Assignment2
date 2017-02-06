@@ -1,8 +1,8 @@
 
 void setup()
 {
-   size(1000, 800, P3D);
-   //fullScreen(P3D);
+   //size(1000, 800, P3D);
+   fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    img2 = loadImage("back.png");
@@ -11,9 +11,9 @@ void setup()
    minim = new Minim(this);
    tune = minim.loadFile ("GOTR.mp3");
    jumpSound= minim.loadFile("Jump.wav");
-    shotgun = minim.loadFile("gauge.wav");
-    reload = minim.loadFile("reload.wav");
-//  chew = minim.loadFile("Chewbacca.wav");
+   shotgun = minim.loadFile("Gauge.wav");
+   reload = minim.loadFile("reload.wav");
+   scream = minim.loadFile("Scream.wav");
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 100, 50);
@@ -21,6 +21,9 @@ void setup()
    Block b2 = new Block(b1.pos.x + b.blockW, height - 170, 100, 50);
    Block b3 = new Block(b2.pos.x + b.blockW, height - 170, 100, 50);
    Block b4 = new Block(b3.pos.x + b.blockW, height - 230, 100, 50);
+   Block b5 = new Block(b.pos.x - 300, height - 170, 100, 50);
+   Block b6 = new Block(b.pos.x - 200, height - 170, 100, 50);
+   Block b7 = new Block(b.pos.x - 100, height - 170, 100, 50);
    
    Block[] blocks = new Block[40];
    
@@ -44,6 +47,9 @@ void setup()
    gameObjects.add(b2);
    gameObjects.add(b3);
    gameObjects.add(b4);
+   gameObjects.add(b5);
+   gameObjects.add(b6);
+   gameObjects.add(b7);
    gameObjects.add(e);
    
    
@@ -56,7 +62,7 @@ AudioPlayer tune;
 AudioPlayer jumpSound;
 AudioPlayer shotgun;
 AudioPlayer reload;
-//AudioPlayer chew;
+AudioPlayer scream;
 
 
 PImage img, img2;
