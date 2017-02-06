@@ -104,7 +104,7 @@ class Player extends GameObject
       fill(0);
       gun3 = createShape(ARC, 16, 50, pMass -20,pMass/4, radians(0), radians(90));
       gun4 = createShape(ARC, 30, 60, pMass/3, pMass/3, radians(0), radians(180));
-      fill(255, 0, 0);
+      fill(0, 255, 255);
       board = createShape(RECT, -50, 125, pMass * 2, pMass - 20);
       noFill();
       strokeWeight(7);
@@ -130,13 +130,36 @@ class Player extends GameObject
     translate(pos.x, pos.y);
     textSize(30);
     noFill();
-    rect(-20, -50, 100, 10);
+    rect(-50, -70, 100, 20);
     fill(255,0,0);
-    rect(-20, -50, health, 10);
-   
-    text("Ammo " + ammo, 0, -230);
-    text("Jet Fuel " + jetFuel, 0, -260);
-    
+    rect(-50, -70, health, 20);
+    fill(0);
+    text(ammo, -50, -90);
+    fill(0);
+      PShape gun;
+      PShape back;
+      PShape middle;
+      PShape front;
+      PShape tail;
+    gun = createShape(GROUP);
+    fill(0);
+    back = createShape(TRIANGLE, 15, -100, 0, -85, 0, -115);
+    fill(255,random(255),255);
+    middle = createShape(RECT, 10, -105, 20, 10);
+    fill(255, 0, 0);
+    front = createShape(ELLIPSE, 40, -100, 20, 15);
+    fill(255, 150, 0);
+    tail = createShape(ELLIPSE, -10, -100, 20, 10);
+    gun.addChild(tail);
+    gun.addChild(back);
+    gun.addChild(middle);
+    gun.addChild(front);
+    shape(gun);
+    noFill();
+    fill(255,255,0);
+    rect(-50, -160, jetFuel/6, 20);
+    fill(0);
+    text("Fuel ", -130, -145);
     shape(ship);
     popMatrix();
     

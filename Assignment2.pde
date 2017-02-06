@@ -14,7 +14,7 @@ void setup()
    Block b3 = new Block(b2.pos.x + b.blockW, height - 170, 100, 50);
    Block b4 = new Block(b3.pos.x + b.blockW, height - 230, 100, 50);
    
-   Block[] blocks = new Block[20];
+   Block[] blocks = new Block[40];
    
    float high = height - 200;
    float gap = 100;
@@ -44,7 +44,7 @@ void setup()
 
 PImage img, img2;
 PFont font;
-int gameState = 2;
+int gameState = 0;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
@@ -114,7 +114,7 @@ void draw()
     {
       background( 20, 120,255);
       float imageX =0;
-      for(int i = 0; i < 2; i++)
+      for(int i = 0; i < 3; i++)
       {
         image(img2, imageX - 1000, 0, width, height);
         imageX+= 1920;
