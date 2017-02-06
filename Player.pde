@@ -2,6 +2,8 @@ boolean upCheck = false;
 boolean bounce = false;
 boolean grav = false;
 boolean jetPack = false;
+boolean shoot = true;
+float shootCounter;
 
 float x1;
 float y1;
@@ -24,7 +26,11 @@ class Player extends GameObject
   PVector pos;
   PShape pod;
   PShape ship;
-  PShape head;
+   PShape gun1;
+  PShape gun2;
+  PShape gun3;
+  PShape gun4;
+  PShape board;
   PShape wheel1;
   PShape wheel2;
   PShape body;
@@ -67,7 +73,7 @@ class Player extends GameObject
   
   void create()
   {
-      ship = createShape(GROUP);
+      /*ship = createShape(GROUP);
       fill(255, 0, 0);
       pod = createShape(RECT, -35, -55, mass, mass);
       fill(0);
@@ -83,7 +89,38 @@ class Player extends GameObject
       ship.addChild(head);
       ship.addChild(body);
       ship.addChild(wheel1);
-      ship.addChild(wheel2); 
+      ship.addChild(wheel2);*/
+      
+            ship = createShape(GROUP);
+      fill(255, 255, 255);
+      pod = createShape(ELLIPSE, 00, 00, pMass, pMass + 20); //createShape(ELLIPSE, 80, 80, mass, mass + 20);
+      body = createShape(RECT, -15, 35, pMass-20, pMass+ 40);
+      fill(0);
+      gun1 = createShape(ELLIPSE, 00, 60, pMass/2 + 5, pMass/2 + 5); // PShape gun1 = createShape(ELLIPSE, mass, mass + 90, mass/2, mass/2);
+      fill(255,0,0);
+      gun2 = createShape(RECT, 15, 50, pMass-20, pMass/4); //PShape gun2 = createShape(RECT, mass + mass/5, mass*2, mass -20, mass/4);
+      fill(0);
+      gun = createShape(ARC, 45, 55, (pMass/4) - 5, (pMass/4) -5 , radians(270), radians(440));
+      fill(0);
+      gun3 = createShape(ARC, 16, 50, pMass -20,pMass/4, radians(0), radians(90));
+      gun4 = createShape(ARC, 30, 60, pMass/3, pMass/3, radians(0), radians(180));
+      fill(0, 255, 0);
+      board = createShape(RECT, -50, 125, pMass * 2, pMass - 20);
+      noFill();
+      strokeWeight(7);
+      wheel1 = createShape(ELLIPSE, -40,  170, pMass-70,pMass-70);
+      wheel2 = createShape(ELLIPSE, 40,  170, pMass-70, pMass-70);
+      
+      ship.addChild(pod);
+      ship.addChild(body);
+      ship.addChild(gun1);
+      ship.addChild(gun);
+      ship.addChild(gun2);
+      ship.addChild(gun3);
+      ship.addChild(gun4);
+      ship.addChild(board);
+      ship.addChild(wheel1);
+      ship.addChild(wheel2);
   }
   
   
@@ -110,10 +147,10 @@ class Player extends GameObject
       
       //for the wheels
       x1 = pos.x + 40;
-      y1 = pos.y + 45;
+      y1 = pos.y + 170;
       
-      x2 = pos.x - 30;
-      y2 = pos.y + 45;
+      x2 = pos.x - 40;
+      y2 = pos.y + 170;
       r =15;
       float cx;
       float cy;
@@ -129,14 +166,14 @@ class Player extends GameObject
       println(x1);
       println(cx);
      
-      line(cx , cy, pos.x + 30, pos.y + 40);
-      line(cx + 5, cy1, pos.x - 25, pos.y + 40);
-      line(cx + 5 , cy1, pos.x - 35, pos.y + 40);
-      line(cx , cy1, pos.x - 25, pos.y + 40);
-      line(cx1 , cy1, pos.x - 30, pos.y + 40);
-      line(cx1 + 5, cy1, pos.x - 30, pos.y + 40);
-      line(cx1 + 5 , cy1, pos.x - 35, pos.y + 40);
-      line(cx1 , cy1, pos.x - 30, pos.y + 40);
+      line(cx , cy, pos.x + 40, pos.y + 170);
+      line(cx + 5, cy1, pos.x - 35, pos.y + 170);
+      line(cx + 5 , cy1, pos.x - 45, pos.y + 170);
+      line(cx , cy1, pos.x - 35, pos.y + 170);
+      line(cx1 , cy1, pos.x - 40, pos.y + 170);
+      line(cx1 + 5, cy1, pos.x - 40, pos.y + 170);
+      line(cx1 + 5 , cy1, pos.x - 45, pos.y + 170);
+      line(cx1 , cy1, pos.x - 40, pos.y + 170);
       
       if(checkKey(up) && grav == false)
       {
@@ -155,7 +192,7 @@ class Player extends GameObject
         float spring = 10;
         for(int i = 0; i < 5; i++)
         {
-          ellipse(pos.x, pos.y + (40 + spring), 15, 10);
+          ellipse(pos.x, pos.y + (140 + spring), 15, 10);
           spring+=10;
         }
         
@@ -167,32 +204,7 @@ class Player extends GameObject
         }
       }
       
-      if(grav == true && pos.y < height- 150)
-       {
-         /*println("piss");
-         PVector g = PVector.div(pGravity, mass);
-         acceleration.add(g);
-         pos.add(acceleration); 
-         gravTime-=1;
-         if(pos.y > height - 100)
-         {
-           acceleration.mult(0);
-           println("cunt");
-           grav = false;
-           acceleration.x = 0;
-           acceleration.y = 0;
-          // acceleration.mult(0);
-         }
-         */
-         
-         pos.y+=5;
-         
-       } 
-       else
-       {
-         grav = false;
-           
-       }
+      
        
     if(checkKey(left))
     {
@@ -212,13 +224,29 @@ class Player extends GameObject
     
     if(checkKey(fire) && ammo > 0)
     {
+      if(shoot == true)
+      {
 
-      Bullet b = new Bullet(pos.x, pos.y - 90, 0, 10, 300);
-      gameObjects.add(b);
-      ammo--;
-
+        Bullet b = new Bullet(pos.x + 20, pos.y + 30, 0, 10, 300);
+        gameObjects.add(b);
+        shoot = false;
+        shootCounter = 0;
+        ammo--;
+        
+      }
+       
     }
     
+    if(shoot == false)
+    {  
+      shootCounter++;
+      
+      if(shootCounter == 10)
+      {
+        shoot = true;
+        
+      }
+    }
 
     for(int i = 0 ; i < gameObjects.size() ; i ++)
     {
@@ -238,35 +266,78 @@ class Player extends GameObject
       if(go instanceof Block)
       {
         Block b = (Block) go;
-        if(bounce == false && grav == false && jetFuel <= 0)
+        if(this.pos.y >= go.pos.y + 180 && this.pos.x + 20 >= go.pos.x && this.pos.x <= go.pos.x + b.blockW)
+        {
+             this.pos.y = go.pos.y-180;
+        }
+        if(grav == true && jetFuel <= 0 && pos.y <= go.pos.y - 180)
         {
 
+           /*println("piss");
+           PVector g = PVector.div(pGravity, mass);
+           acceleration.add(g);
+           pos.add(acceleration); 
+           gravTime-=1;
+           if(pos.y > height - 100)
+           {
+             acceleration.mult(0);
+             println("cunt");
+             grav = false;
+             acceleration.x = 0;
+             acceleration.y = 0;
+            // acceleration.mult(0);
+           }
+           */
+           
+           pos.y+=5;
+          
+           if((this.pos.y -180 >= go.pos.y /*+ 180*/ || this.pos.y <= go.pos.y) && this.pos.x >= go.pos.x && this.pos.x <= go.pos.x + b.blockW)
+           {
+             this.pos.y = go.pos.y-180;
+           }
+         } 
+         else
+         {
+           grav = false;
+           
+         }
+           
             /*PVector g = PVector.div(pGravity, mass);
              acceleration.add(g);
              pos.add(acceleration);*/
              
-             if(this.pos.y >= go.pos.y-35)
+            /* if(this.pos.y >= go.pos.y-35)
              {
-              
-                this.pos.y = go.pos.y-35;
+               this.pos.y = go.pos.y-35;
                 grav = false;
-                upCheck = false;
                 acceleration.mult(0);  
-                    
-             } 
+             } */
                        
-             if(this.pos.x >= go.pos.x && (this.pos.y + 26 >= (go.pos.y) || this.pos.y <= go.pos.y) && pos.x < go.pos.x+ 100)
+            /* if(this.pos.x >= go.pos.x && (this.pos.y + 26 >= (go.pos.y) || this.pos.y <= go.pos.y) && pos.x < go.pos.x+ 100)
              {
                 this.pos.y = go.pos.y - 55;
                 //grav = false;
                 println(this.pos.y);
                 println(go.pos.y);
           
-              }
-          }
+              }*/
+          
+        }
+      
+        if(go instanceof Enemy)
+        {  
+          Enemy e = (Enemy) go;
+        if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < mass )
+        {
+          this.health--;
+          gameObjects.remove(e);
+          
         }
         
       }
+        
+        
+    }
       
     
     
@@ -292,9 +363,9 @@ class Player extends GameObject
     if(this.ammo > 0)
     {
     
-      Gun g = new Gun(pos.x, pos.y - 90);
+      Gun g = new Gun(pos.x + 20, pos.y + 50);
       stroke(38, 179, 10);
-      line(pos.x, pos.y-90, mouseX, mouseY);
+      line(pos.x + 20, pos.y + 50, mouseX, mouseY);
       noCursor();
       ellipse(mouseX, mouseY, 10, 10);
       stroke(0);

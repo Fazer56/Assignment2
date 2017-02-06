@@ -26,8 +26,7 @@ void bounceBall()
     if(count > 7)
     {
       speed = speed * -0.70;
-      gameState = 1;
-      
+      gameState = 1;     
     }
   }
   

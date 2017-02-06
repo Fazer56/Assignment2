@@ -2,7 +2,7 @@ class Bullet extends GameObject
 {
   float theta;
   float size;
-  float speed = 50;
+  float speed = 10;
   float timeTolive;
   float alive;
   PVector forward;
@@ -22,7 +22,7 @@ class Bullet extends GameObject
     this.alive = 0;
     pos = new PVector(x, y);
     forward = new PVector(mouseX, mouseY);
-    rotation = atan2(forward.y - pos.y, forward.x - pos.x) / PI * 180;
+    rotation = atan2(forward.y - pos.y, forward.x - pos.x) / radians(180) * 180;
   }
   
   void render()
