@@ -1,8 +1,8 @@
 
 void setup()
 {
-   size(1000, 800, P3D);
-   //fullScreen(P3D);
+   //size(1000, 800, P3D);
+   fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
@@ -13,6 +13,18 @@ void setup()
    Block b2 = new Block(b1.pos.x + b.blockW, height - 170, 100, 50);
    Block b3 = new Block(b2.pos.x + b.blockW, height - 170, 100, 50);
    Block b4 = new Block(b3.pos.x + b.blockW, height - 230, 100, 50);
+   
+   Block[] blocks = new Block[20];
+   
+   float high = height - 200;
+   
+   for(int i = 0 ; i< blocks.length -1; i++)
+   {
+     blocks[i] = new Block(random(b4.pos.x + b.blockW, 2000), high, 100, 50);
+     gameObjects.add(blocks[i]);
+     high+=random(-50, 50);
+     
+   }
    
    Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y);
    

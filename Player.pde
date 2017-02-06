@@ -144,7 +144,7 @@ class Player extends GameObject
   
   void update()
   {
-      
+       camera(pos.x, height/2, (height/2)/tan(PI/6), pos.x, height/2, 0, 0, 1, 0);
       //for the wheels
       x1 = pos.x + 40;
       y1 = pos.y + 170;
