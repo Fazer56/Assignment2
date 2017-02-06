@@ -19,6 +19,7 @@ class Block extends GameObject
   {
     pushMatrix();
     translate(pos.x, pos.y);
+    stroke(0);
     fill(0,255,0);
     rect(0, 0, blockW, blockH);
     fill(152,89,60);

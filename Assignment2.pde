@@ -5,7 +5,7 @@ void setup()
    fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
-   
+   img2 = loadImage("back.png");
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 100, 50);
@@ -18,10 +18,15 @@ void setup()
    
    float high = height - 200;
    
-   for(int i = 0 ; i< blocks.length -1; i++)
+   for(int i = 0 ; i< blocks.length; i++)
    {
+     stroke(0);
      blocks[i] = new Block(random(b4.pos.x + b.blockW, 2000), high, 100, 50);
      gameObjects.add(blocks[i]);
+     /*if(blocks[i].pos.x == blocks[i-1].pos.x )
+     {
+       gameObjects.remove(blocks[i - 1]);
+     }*/
      high+=random(-50, 50);
      
    }
@@ -40,7 +45,7 @@ void setup()
    
 }
 
-PImage img;
+PImage img, img2;
 PFont font;
 int gameState = 2;
 float imgY = 0;
@@ -111,6 +116,13 @@ void draw()
     case 2 :
     {
       background( 20, 120,255);
+      float imageX =0;
+      for(int i = 0; i < 2; i++)
+      {
+        image(img2, imageX - 1000, 0, width, height);
+        imageX+= 1920;
+        
+      }
       running();
       break;
       
@@ -132,7 +144,7 @@ void running()
     if(frameCount % 120 == 0)
     {
       Level c = new Level();
-      c.pos =new PVector(random(width), random(25, height/3));
+      c.pos =new PVector(random(width), random(45, height/2.5));
       gameObjects.add(c);
       
       //gameObjects.remove(c);

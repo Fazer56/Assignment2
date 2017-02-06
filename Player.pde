@@ -129,9 +129,9 @@ class Player extends GameObject
     pushMatrix();
     translate(pos.x, pos.y);
     textSize(30);
-    text("Health " + health, 0, -500);
-    text("Ammo " + ammo, 0, -530);
-    text("Jet Fuel " + jetFuel, 0, -560);
+    text("Health " + health, 0, -200);
+    text("Ammo " + ammo, 0, -230);
+    text("Jet Fuel " + jetFuel, 0, -260);
     
     shape(ship);
     popMatrix();
@@ -226,13 +226,11 @@ class Player extends GameObject
     {
       if(shoot == true)
       {
-
         Bullet b = new Bullet(pos.x + 20, pos.y + 30, 0, 10, 300);
         gameObjects.add(b);
         shoot = false;
         shootCounter = 0;
-        ammo--;
-        
+        ammo--; 
       }
        
     }
@@ -244,7 +242,6 @@ class Player extends GameObject
       if(shootCounter == 10)
       {
         shoot = true;
-        
       }
     }
 
@@ -268,7 +265,7 @@ class Player extends GameObject
         Block b = (Block) go;
         if(bounce == false)
         {
-          if(grav == false)
+          if(grav == false && jetFuel <= 0)
           {
             if((this.pos.y + 180 >= go.pos.y|| this.pos.y + 180 <= go.pos.y) && this.pos.x  >= go.pos.x && this.pos.x <= go.pos.x + 100)
             {
@@ -364,15 +361,16 @@ class Player extends GameObject
         pos.add(jump);  
         acceleration.mult(0);
         
-        JetPack j = new JetPack(pos.x - 60, pos.y + 20);
+        JetPack j = new JetPack(pos.x - 60, pos.y + 40);
         gameObjects.add(j);
+        jetFuel--;
         
-        if(pos.y < height - 300)
+        if(pos.y < height - 600)
         {
-          pos.y = height - 300;
+          pos.y = height - 600;
           
         }
-       jetFuel--;
+       
     }
 
     
