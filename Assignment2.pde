@@ -1,11 +1,19 @@
 
 void setup()
 {
-   //size(1000, 800, P3D);
-   fullScreen(P3D);
+   size(1000, 800, P3D);
+   //fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    img2 = loadImage("back.png");
+   
+   //load music
+   minim = new Minim(this);
+   tune = minim.loadFile ("GOTR.mp3");
+   jumpSound= minim.loadFile("Jump.wav");
+    shotgun = minim.loadFile("gauge.wav");
+    reload = minim.loadFile("reload.wav");
+//  chew = minim.loadFile("Chewbacca.wav");
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 100, 50);
@@ -42,9 +50,18 @@ void setup()
    
 }
 
+import ddf.minim.*;
+Minim minim;
+AudioPlayer tune;
+AudioPlayer jumpSound;
+AudioPlayer shotgun;
+AudioPlayer reload;
+//AudioPlayer chew;
+
+
 PImage img, img2;
 PFont font;
-int gameState = 0;
+int gameState = 2;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
@@ -120,6 +137,9 @@ void draw()
         imageX+= 1920;
         
       }
+      
+      //tune.play();
+      //tune.pause();
       running();
       break;
       
@@ -161,6 +181,8 @@ void running()
     Gun ammo = new Gun();
     ammo.pos = new PVector(random(0, width), random(height - 300, height - 450));
     gameObjects.add(ammo);
+    
+    
   }
   
 

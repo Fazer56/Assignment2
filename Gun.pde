@@ -22,7 +22,8 @@ class Gun extends GameObject implements Powerup
   void applyTo(Player p)
   {
     p.ammo++;
-    
+    reload.rewind();
+    reload.play();
   }
   
   void render()

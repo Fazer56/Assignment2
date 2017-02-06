@@ -44,10 +44,11 @@ class Enemy extends GameObject
         Bullet b = (Bullet) go;
         if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < 50)
         {
+          Blood bl = new Blood(pos.x, pos.y, 120);
+          gameObjects.add(bl);
           gameObjects.remove(this);
           gameObjects.remove(go);
           
-        
         }
       }
     }

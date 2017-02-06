@@ -13,39 +13,28 @@ class Blood extends GameObject
   PShape stain;
   float timeTolive;
   
-  Blood(float x, float y)
+  Blood(float x, float y, float live)
   {
-    this.timeTolive = 120;
+    this.timeTolive = live;
     pos = new PVector(x, y);
     create();
     
   }
   
-  void render()
-  {
-    
-   
-  }
-  
-  void update()
-  {
-    
-    
-  }
-  
   void create()
   {
-    fill(255, 0, 0);
-
-      blood1 = createShape(ELLIPSE, x, y, 30, 30);
-      blood2 = createShape(ELLIPSE, x + 15, y + 15, 30, 30);
-      blood3 = createShape(ELLIPSE, x - 15, y -15, 30, 30);
-      blood4 = createShape(ELLIPSE, x , y -15, 30, 30);
-      blood5 = createShape(ELLIPSE, x -15 , y, 30, 30);
-      blood6 = createShape(ELLIPSE, x +15 , y, 30, 30);
-      blood7  = createShape(ELLIPSE, x +30 , y - 30, 10, 10);
-      blood9  = createShape(ELLIPSE, x +40 , y - 20, 10, 10);
-      blood10  = createShape(ELLIPSE, x +15 , y - 40, 10, 10);
+      fill(255, 0, 0);
+      noStroke();
+      stain = createShape(GROUP);
+      blood1 = createShape(ELLIPSE, 0, 0, 30, 30);
+      blood2 = createShape(ELLIPSE, 15, 15, 30, 30);
+      blood3 = createShape(ELLIPSE, -15, -15, 30, 30);
+      blood4 = createShape(ELLIPSE, 0 , -15, 30, 30);
+      blood5 = createShape(ELLIPSE, -15 , 0, 30, 30);
+      blood6 = createShape(ELLIPSE, 15 , 0, 30, 30);
+      blood7  = createShape(ELLIPSE,  30 , -30, 10, 10);
+      blood9  = createShape(ELLIPSE, 40 , -20, 10, 10);
+      blood10  = createShape(ELLIPSE,  15 , -40, 10, 10);
        
       stain.addChild(blood1);
       stain.addChild(blood2);
@@ -56,9 +45,30 @@ class Blood extends GameObject
       stain.addChild(blood7);
       stain.addChild(blood9);
       stain.addChild(blood10);
-  
-  shape(stain);
-  
   }
   
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
+    shape(stain);
+    popMatrix();
+   
+  }
+  
+  void update()
+  {
+    timeTolive--;
+    if(timeTolive < 60)
+    {
+      fill(137, 132, 124);
+      
+    }
+    if(timeTolive < 0)
+    {
+      gameObjects.remove(this);
+      
+    }
+    
+  }
 }

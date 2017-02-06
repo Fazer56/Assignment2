@@ -204,6 +204,8 @@ class Player extends GameObject
       
       if(checkKey(up) && grav == false)
       {
+        jumpSound.rewind();
+        jumpSound.play();
        
         bounce = true;
        
@@ -251,16 +253,25 @@ class Player extends GameObject
     
     if(checkKey(fire) && ammo > 0)
     {
+      //tune.pause();
+       shotgun.rewind();
+       shotgun.play();
+       
+      
       if(shoot == true)
       {
+        
         Bullet b = new Bullet(pos.x + 20, pos.y + 30, 0, 10, 300);
         gameObjects.add(b);
         shoot = false;
         shootCounter = 0;
+       
         ammo--; 
       }
        
     }
+    
+   // tune.play();
     
     if(shoot == false)
     {  
@@ -366,11 +377,11 @@ class Player extends GameObject
           this.health--;
           gameObjects.remove(e);
           
-        }
+     
+        
+           }
         
       }
-        
-        
     }
       
   if(frameCount % 240 == 0)
