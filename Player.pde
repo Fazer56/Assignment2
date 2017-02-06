@@ -129,7 +129,11 @@ class Player extends GameObject
     pushMatrix();
     translate(pos.x, pos.y);
     textSize(30);
-    text("Health " + health, 0, -200);
+    noFill();
+    rect(-20, -50, 100, 10);
+    fill(255,0,0);
+    rect(-20, -50, health, 10);
+   
     text("Ammo " + ammo, 0, -230);
     text("Jet Fuel " + jetFuel, 0, -260);
     

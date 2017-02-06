@@ -45,6 +45,8 @@ class Enemy extends GameObject
         if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < 50)
         {
           gameObjects.remove(this);
+          gameObjects.remove(go);
+          
         
         }
       }

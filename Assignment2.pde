@@ -17,18 +17,15 @@ void setup()
    Block[] blocks = new Block[20];
    
    float high = height - 200;
+   float gap = 100;
    
-   for(int i = 0 ; i< blocks.length; i++)
+   for(int i = 0 ; i< blocks.length-1; i++)
    {
      stroke(0);
-     blocks[i] = new Block(random(b4.pos.x + b.blockW, 2000), high, 100, 50);
+     blocks[i] = new Block(b4.pos.x + gap, high, 100, 50);
      gameObjects.add(blocks[i]);
-     /*if(blocks[i].pos.x == blocks[i-1].pos.x )
-     {
-       gameObjects.remove(blocks[i - 1]);
-     }*/
-     high+=random(-50, 50);
-     
+     high = high + (60 * random(-1, 1));
+     gap+= 100;
    }
    
    Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y);
