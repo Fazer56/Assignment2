@@ -1,3 +1,4 @@
+
 void setup()
 {
    size(1000, 800, P3D);
@@ -5,12 +6,13 @@ void setup()
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    
+   
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
-    Block b = new Block(player1.pos.x - 100, player1.pos.y + 180, 100, 50);
-   Block b1 = new Block(b.pos.x + b.blockW, player1.pos.y + 180, 100, 50);
-   Block b2 = new Block(b1.pos.x + b.blockW, player1.pos.y + 180, 100, 50);
-   Block b3 = new Block(b2.pos.x + b.blockW, player1.pos.y + 180, 100, 50);
-   Block b4 = new Block(b3.pos.x + b.blockW, player1.pos.y + 130, 100, 50);
+   Block b = new Block(0, height - 170, 100, 50);
+   Block b1 = new Block(b.pos.x + b.blockW, height - 170, 100, 50);
+   Block b2 = new Block(b1.pos.x + b.blockW, height - 170, 100, 50);
+   Block b3 = new Block(b2.pos.x + b.blockW, height - 170, 100, 50);
+   Block b4 = new Block(b3.pos.x + b.blockW, height - 230, 100, 50);
    
    Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y);
    
@@ -33,6 +35,9 @@ float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
 boolean[] keys = new boolean[1000];
+
+
+
 
 void keyPressed()
 { 
@@ -122,25 +127,21 @@ void running()
      
     }
     
-  if (frameCount % 240 == 0)
-  {
-    Gun ammo = new Gun();
-    ammo.pos = new PVector(random(0, width), random(height - 200, height - 350));
-    gameObjects.add(ammo);
-  }
   
   if(frameCount % 480 == 0)
   {
     JetPack j = new JetPack();
-    j.pos = new PVector(random(300, width + 500), random(height -200, height -150));
+    j.pos = new PVector(random(300, width + 500), random(height -300, height -450));
     gameObjects.add(j);
   }
   
   if (frameCount % 240 == 0)
   {
     Gun ammo = new Gun();
-    ammo.pos = new PVector(random(0, width), random(height - 200, height - 350));
+    ammo.pos = new PVector(random(0, width), random(height - 300, height - 450));
     gameObjects.add(ammo);
   }
+  
+
   
 }

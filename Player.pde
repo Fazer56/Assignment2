@@ -26,7 +26,7 @@ class Player extends GameObject
   PVector pos;
   PShape pod;
   PShape ship;
-   PShape gun1;
+  PShape gun1;
   PShape gun2;
   PShape gun3;
   PShape gun4;
@@ -56,7 +56,7 @@ class Player extends GameObject
     this.fire = fire;
     this.jumpTime = 30;
     this.jetFuel = 0;
-    this.gravTime = 5;
+    this.gravTime = 30;
     this.theta = theta;
     this.aimTheta = aimTheta;
     this.ammo = 0;
@@ -91,7 +91,7 @@ class Player extends GameObject
       ship.addChild(wheel1);
       ship.addChild(wheel2);*/
       
-            ship = createShape(GROUP);
+      ship = createShape(GROUP);
       fill(255, 255, 255);
       pod = createShape(ELLIPSE, 00, 00, pMass, pMass + 20); //createShape(ELLIPSE, 80, 80, mass, mass + 20);
       body = createShape(RECT, -15, 35, pMass-20, pMass+ 40);
@@ -104,7 +104,7 @@ class Player extends GameObject
       fill(0);
       gun3 = createShape(ARC, 16, 50, pMass -20,pMass/4, radians(0), radians(90));
       gun4 = createShape(ARC, 30, 60, pMass/3, pMass/3, radians(0), radians(180));
-      fill(0, 255, 0);
+      fill(255, 0, 0);
       board = createShape(RECT, -50, 125, pMass * 2, pMass - 20);
       noFill();
       strokeWeight(7);
@@ -254,7 +254,7 @@ class Player extends GameObject
       if (go instanceof Powerup)
       {
         Powerup p = (Powerup) go;
-         if (dist(go.pos.x, go.pos.y, this.pos.x, this.pos.y) < mass + 5)
+        if (dist(go.pos.x, go.pos.y - 50, this.pos.x, this.pos.y) < mass + 10)
         {
           p.applyTo(this);
           gameObjects.remove(go);
@@ -266,13 +266,19 @@ class Player extends GameObject
       if(go instanceof Block)
       {
         Block b = (Block) go;
-        if(this.pos.y >= go.pos.y + 180 && this.pos.x + 20 >= go.pos.x && this.pos.x <= go.pos.x + b.blockW)
+        if(bounce == false)
         {
-             this.pos.y = go.pos.y-180;
-        }
-        if(grav == true && jetFuel <= 0 && pos.y <= go.pos.y - 180)
-        {
-
+          if(grav == false)
+          {
+            if((this.pos.y + 180 >= go.pos.y|| this.pos.y + 180 <= go.pos.y) && this.pos.x  >= go.pos.x && this.pos.x <= go.pos.x + 100)
+            {
+                 this.pos.y = go.pos.y - 180;
+            }
+          }
+          if(grav == true && jetFuel <= 0)
+          {
+           
+          
            /*println("piss");
            PVector g = PVector.div(pGravity, mass);
            acceleration.add(g);
@@ -289,18 +295,22 @@ class Player extends GameObject
            }
            */
            
-           pos.y+=5;
+             pos.y+=.5;
+             if(this.pos.y >= go.pos.y - 180)
+             {
+                grav = false;
+                this.pos.y = go.pos.y - 180;
+           
+             }
           
-           if((this.pos.y -180 >= go.pos.y /*+ 180*/ || this.pos.y <= go.pos.y) && this.pos.x >= go.pos.x && this.pos.x <= go.pos.x + b.blockW)
+           /*if((this.pos.y -180 >= go.pos.y /*+ 180*/ /*|| this.pos.y <= go.pos.y) && this.pos.x >= go.pos.x && this.pos.x <= go.pos.x + b.blockW)
            {
              this.pos.y = go.pos.y-180;
-           }
-         } 
-         else
-         {
-           grav = false;
-           
-         }
+           }*/
+           } 
+
+          
+         
            
             /*PVector g = PVector.div(pGravity, mass);
              acceleration.add(g);
@@ -321,7 +331,7 @@ class Player extends GameObject
                 println(go.pos.y);
           
               }*/
-          
+          }
         }
       
         if(go instanceof Enemy)
@@ -339,7 +349,13 @@ class Player extends GameObject
         
     }
       
+  if(frameCount % 240 == 0)
+  {
     
+    Enemy e = new Enemy(width/2, height/2, this.pos.x, this.pos.y);
+    gameObjects.add(e);
+    
+  }
     
     if(jetFuel > 0)
     {
