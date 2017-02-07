@@ -60,7 +60,7 @@ class Player extends GameObject
     this.gravTime = 30;
     this.theta = theta;
     this.aimTheta = aimTheta;
-    this.ammo = 0;
+    this.ammo = 20;
     this.health = 100;
     pos = new PVector(x, y);
     jump = new PVector(0, -.12*mass); //powerup will multiply mass by 3!
@@ -96,7 +96,7 @@ class Player extends GameObject
       strokeWeight(7);
       wheel1 = createShape(ELLIPSE, -40,  170, pMass-70,pMass-70);
       wheel2 = createShape(ELLIPSE, 40,  170, pMass-70, pMass-70);
-      
+      strokeWeight(3);
       ship.addChild(pod);
       ship.addChild(body);
       ship.addChild(gun1);
@@ -221,8 +221,6 @@ class Player extends GameObject
         }
       }
       
-      
-       
     if(checkKey(left))
     {
       pVelocity.add(acceleration);
@@ -319,7 +317,7 @@ class Player extends GameObject
         if(go instanceof Enemy)
         {  
           Enemy e = (Enemy) go;
-        if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < mass )
+        if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < mass + 25 )
         {
           pain.rewind();
           pain.play();

@@ -3,6 +3,12 @@ class Enemy extends GameObject
   
   PVector playerPos;
   float angle;
+  PShape body;
+  PShape wing1;
+  PShape wing2;
+  PShape eye1;
+  PShape eye2;
+  PShape enemy;
   
   Enemy()
   {
@@ -13,10 +19,25 @@ class Enemy extends GameObject
     pos = new PVector(x1, y1);
     playerPos = new PVector(x2, y2);
     this.angle = atan2(pos.y - playerPos.y, pos.x - playerPos.x) / /*radians(180)*/ PI * 180;
+    create();
   }
    
   void create()
   {
+    enemy = createShape(GROUP);
+    fill(0);
+    body = createShape(ELLIPSE, 0, 0, 50, 30);
+    fill(255,255,255);
+    eye1 = createShape(ELLIPSE, -5, -5, 10, 10);
+    eye2 = createShape(ELLIPSE, 5, -5, 10, 10);
+    wing1 = createShape(LINE, -20, -10, -40, -25);
+    wing2 = createShape(LINE, 20, -10, 40, -25);
+    enemy.addChild(body);
+    enemy.addChild(eye1);
+    enemy.addChild(eye2);
+    enemy.addChild(wing1);
+    enemy.addChild(wing2);
+    
   }
   
   void render()
@@ -24,8 +45,7 @@ class Enemy extends GameObject
     
     pushMatrix();
     translate(pos.x, pos.y);
-    fill(0);
-    rect(0, 0, 40, 40);
+    shape(enemy);
     popMatrix();
     
   }
