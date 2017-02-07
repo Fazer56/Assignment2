@@ -6,7 +6,8 @@ class JetPack extends GameObject implements Powerup
   PShape front;
   PShape tail;
   PShape tail1;
-   int timeTolive;
+  PShape top;
+  int timeTolive;
   
   JetPack()
   {
@@ -29,8 +30,9 @@ class JetPack extends GameObject implements Powerup
     translate(pos.x, pos.y);
     gun = createShape(GROUP);
     fill(255, 0, 0);
+    top = createShape(ARC, 0, -30, 25, 25, radians(180), radians(360));
     back = createShape(TRIANGLE, 0, 0, 15, 15, -15, 15);
-    fill(255,255,255);
+    fill(108,102, 102);
     middle = createShape(RECT, -15, -30, 30, 30);
     /*fill(255, 0, 0);
     front = createShape(ELLIPSE, 80, 60, 20, 15);
@@ -53,6 +55,7 @@ class JetPack extends GameObject implements Powerup
     gun.addChild(tail);
     gun.addChild(back);
     gun.addChild(middle);
+    gun.addChild(top);
     shape(gun);
     popMatrix();
 

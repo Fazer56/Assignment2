@@ -334,23 +334,24 @@ class Player extends GameObject
           Enemy e = (Enemy) go;
         if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < mass )
         {
+          pain.rewind();
+          pain.play();
           this.health--;
           gameObjects.remove(e);
-         
-        
-          }
+          
+         }
         
       }
     }
       
-  if(frameCount % 240 == 0)
-  {
-    
-    Enemy e = new Enemy(width/2, height/2, this.pos.x, this.pos.y);
-    gameObjects.add(e);
-    
-  }
-    
+    if(frameCount % 60 == 0)
+    {
+      
+      Enemy e = new Enemy(width/2, height/2, this.pos.x, this.pos.y);
+      gameObjects.add(e);
+      
+    }
+      
     if(jetFuel > 0)
     {
         pVelocity.add(acceleration);
@@ -359,15 +360,15 @@ class Player extends GameObject
         acceleration.mult(0);
         
         JetPack j = new JetPack(pos.x - 30, pos.y + 70);
+        fill(250, random(100, 180), random(0, 10));
+        triangle(pos.x - 30, pos.y + 100, pos.x - 45, pos.y + 85, pos.x -15 , pos.y + 85);
         gameObjects.add(j);
         jetFuel--;
         
         if(pos.y < height - 600)
         {
           pos.y = height - 600;
-          
         }
-       
     }
     if(this.ammo > 0)
     {
@@ -382,6 +383,11 @@ class Player extends GameObject
       
     }
     
-  }
+    if(health < 0)
+    {
+      gameState = 1;
+      
+    }
+ }
   
 }

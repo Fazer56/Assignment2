@@ -1,8 +1,8 @@
 
 void setup()
 {
-   //size(1000, 800, P3D);
-   fullScreen(P3D);
+   size(1000, 800, P3D);
+   //fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    img2 = loadImage("back.png");
@@ -14,6 +14,8 @@ void setup()
    shotgun = minim.loadFile("Gauge.wav");
    reload = minim.loadFile("reload.wav");
    scream = minim.loadFile("Scream.wav");
+   pain = minim.loadFile("Pain.wav");
+  
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 100, 50);
@@ -63,6 +65,7 @@ AudioPlayer jumpSound;
 AudioPlayer shotgun;
 AudioPlayer reload;
 AudioPlayer scream;
+AudioPlayer pain;
 
 
 PImage img, img2;
@@ -125,10 +128,12 @@ void draw()
     }
     
     case 1 :
-    {
-      Menu  m = new Menu();
-       gameObjects.add(m);
-       m.render();
+    { 
+        Menu  m = new Menu(width/4, height/2);
+        println(width/4);
+        gameObjects.add(m);
+        m.render();
+      
       break;
       
     }
@@ -141,11 +146,10 @@ void draw()
       {
         image(img2, imageX - 1000, 0, width, height);
         imageX+= 1920;
-        
       }
       
-      //tune.play();
-      //tune.pause();
+      tune.play();
+      tune.pause();
       running();
       break;
       
@@ -175,7 +179,7 @@ void running()
     }
     
   
-  if(frameCount % 480 == 0)
+  if(frameCount % 60 == 0)
   {
     JetPack j = new JetPack();
     j.pos = new PVector(random(300, width + 500), random(height -300, height -450));
