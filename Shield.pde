@@ -28,20 +28,22 @@ class Shield extends GameObject implements Powerup
   
   void applyTo(Player p)
   {
-    p.health = 100;
+    p.shield = 300;
   }
   
-  void update()
+  void render()
   {
     pushMatrix();
     translate(pos.x, pos.y);
     shape(shield);
     popMatrix();
+  }
+  
+  void update()
+  {
+    
     
   }
   
-  void render()
-  {
-    
-  }
+
 }

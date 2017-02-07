@@ -43,8 +43,11 @@ class Player extends GameObject
   int jumpTime;
   int gravTime;
   int ammo;
+  int shield;
   int health;
   int jetFuel;
+  float shieldW;
+  float shieldH;
   
   Player(float x, float y, int lives, float theta, float aimTheta, float mass, char up, char down, char left, char right, char fire)
   {
@@ -60,14 +63,18 @@ class Player extends GameObject
     this.gravTime = 30;
     this.theta = theta;
     this.aimTheta = aimTheta;
-    this.ammo = 20;
+    this.ammo = 10;
     this.health = 100;
+    this.shield = 0;
+    this.shieldW = 0;
+    this.shieldH = 0;
     pos = new PVector(x, y);
     jump = new PVector(0, -.12*mass); //powerup will multiply mass by 3!
     pGravity = new PVector(0, 0.006*mass);
-    forward = new PVector(3, 0);
+    forward = new PVector(2, 0);
     acceleration = new PVector(0, 0);
     pVelocity = new PVector(0, 0);
+    
     
     create();
   }
@@ -329,7 +336,7 @@ class Player extends GameObject
       }
     }
       
-    if(frameCount % 180 == 0)
+    if(frameCount % 240 == 0)
     {
       
       Enemy e = new Enemy(random(5000), height/2, this.pos.x, this.pos.y, 600);
@@ -337,6 +344,26 @@ class Player extends GameObject
       
     }
       
+    if(shield > 0)
+    {
+      strokeWeight(5);
+      noFill();
+      stroke(random(255), random(255), random(255));
+      ellipse(pos.x, pos.y + 50, shieldW, shieldH);
+      shieldW++;
+      shieldH+=2;
+      
+      health = 100;
+      
+      if(shieldW > 150 && shieldH > 250)
+      {
+        shieldW = shieldW * -1;
+        shieldH = shieldH * -1;        
+      }
+      shield--;
+      
+      
+    }
     if(jetFuel > 0)
     {
         pVelocity.add(acceleration);

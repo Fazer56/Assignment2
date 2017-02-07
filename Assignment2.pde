@@ -28,6 +28,7 @@ void setup()
    Block b7 = new Block(b.pos.x - 100, height - 170, 100, 50);
    Block b8 = new Block(3000, height - 800, 100, 50);
    Shield shield = new Shield( 3100, height - 850);
+   JetPack j = new JetPack( 2900, height - 450, 2500);
    
    Block[] blocks = new Block[40];
    
@@ -57,6 +58,8 @@ void setup()
    gameObjects.add(e);
    gameObjects.add(b8);
    gameObjects.add(shield);
+   gameObjects.add(j);
+   
    
    
    
