@@ -22,7 +22,7 @@ class JetPack extends GameObject implements Powerup
   
   void applyTo(Player p)
   {
-    p.jetFuel = 600;
+    p.jetFuel = 300;
   }
   
   void render()

@@ -1,8 +1,8 @@
 
 void setup()
 {
-   //size(1000, 800, P3D);
-   fullScreen(P3D);
+   size(1000, 800, P3D);
+   //fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    img2 = loadImage("back.png");
@@ -18,33 +18,33 @@ void setup()
   
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
-   Block b = new Block(0, height - 170, 100, 50);
-   Block b1 = new Block(b.pos.x + b.blockW, height - 170, 100, 50);
-   Block b2 = new Block(b1.pos.x + b.blockW, height - 170, 100, 50);
-   Block b3 = new Block(b2.pos.x + b.blockW, height - 170, 100, 50);
-   Block b4 = new Block(b3.pos.x + b.blockW, height - 230, 100, 50);
-   Block b5 = new Block(b.pos.x - 300, height - 170, 100, 50);
-   Block b6 = new Block(b.pos.x - 200, height - 170, 100, 50);
-   Block b7 = new Block(b.pos.x - 100, height - 170, 100, 50);
-   Block b8 = new Block(3000, height - 800, 100, 50);
-   Shield shield = new Shield( 3100, height - 850);
-   JetPack j = new JetPack( 2900, height - 450, 2500);
+   Block b = new Block(0, height - 170, 110, 50);
+   Block b1 = new Block(b.pos.x + b.blockW, height - 170, 110, 50);
+   Block b2 = new Block(b1.pos.x + b.blockW, height - 170, 110, 50);
+   Block b3 = new Block(b2.pos.x + b.blockW, height - 170, 110, 50);
+   Block b4 = new Block(b3.pos.x + b.blockW, height - 230, 110, 50);
+   Block b5 = new Block(b.pos.x - 310, height - 170, 110, 50);
+   Block b6 = new Block(b.pos.x - 210, height - 170, 110, 50);
+   Block b7 = new Block(b.pos.x - 110, height - 170, 110, 50);
+   Block b8 = new Block(3000, height - 800, 110, 50);
+   Shield shield = new Shield( 1200, height - 850);
+   
    
    Block[] blocks = new Block[40];
    
    float high = height - 200;
-   float gap = 100;
+   float gap = 110;
    
    for(int i = 0 ; i< blocks.length-1; i++)
    {
      stroke(0);
-     blocks[i] = new Block(b4.pos.x + gap, high, 100, 50);
+     blocks[i] = new Block(b4.pos.x + gap, high, 110, 50);
      gameObjects.add(blocks[i]);
      high = high + (60 * random(-1, 1));
-     gap+= 100;
+     gap+= 110;
    }
    
-   Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y, 120);
+   Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y, 120, 2);
    
    gameObjects.add(player1);
    gameObjects.add(b);
@@ -58,10 +58,6 @@ void setup()
    gameObjects.add(e);
    gameObjects.add(b8);
    gameObjects.add(shield);
-   gameObjects.add(j);
-   
-   
-   
    
 }
 
@@ -74,16 +70,14 @@ AudioPlayer reload;
 AudioPlayer scream;
 AudioPlayer pain;
 
-
+int score = 0;
 PImage img, img2;
 PFont font;
-int gameState = 2;
+int gameState = 0;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
 boolean[] keys = new boolean[1000];
-
-
 
 
 void keyPressed()
@@ -105,19 +99,11 @@ boolean checkKey(int k)
   return false;
 }
 
+
+
 void draw()
 {
-  noStroke();
-  fill(0,255,0);
-  rect(0,0, width, height/4);
-  fill(255,255,0);
-  rect(0, height/4, width, height/4);
-  fill(0, 0, 255);
-  rect(0, height/2, width, height/4);
-  fill(255, 0, 0);
-  rect(0, height/4*3, width, height/4);
-  
-  image(img, width/4, imgY, width/2, height/4); 
+
   //image(img2, width/1.5, height/6); //width/8, height/8);
   
   imgY++;
@@ -126,6 +112,8 @@ void draw()
     imgY = height/4;
   }
   
+
+
   switch(gameState)
   {
     case 0 :
@@ -137,7 +125,6 @@ void draw()
     case 1 :
     { 
         Menu  m = new Menu(width/4, height/2);
-        println(width/4);
         gameObjects.add(m);
         m.render();
       
@@ -155,9 +142,9 @@ void draw()
         imageX+= 1920;
       }
       
+      running();
       tune.play();
       tune.pause();
-      running();
       break;
       
     }
@@ -167,14 +154,13 @@ void draw()
 
 void running()
 {
-     for(int i = 0; i < gameObjects.size(); i++)
+       
+    for( int i  = 0; i < gameObjects.size(); i++)
     {
       GameObject go = gameObjects.get(i);
       go.render();
       go.update();
-      
     }
-    
     if(frameCount % 120 == 0)
     {
       Level c = new Level();
@@ -182,21 +168,20 @@ void running()
       gameObjects.add(c);
       
       //gameObjects.remove(c);
-     
     }
     
   
-  if(frameCount % 360 == 0)
+ /* if(frameCount % 360 == 0)
   {
     JetPack j = new JetPack(random(300, 5000), random(height -300, height -450), 240);
     gameObjects.add(j);
-  }
+  }*/
   
-  if (frameCount % 240 == 0)
+  /*if (frameCount % 240 == 0)
   {
-    Gun ammo = new Gun(random(0, 5000), random(height - 300, height - 450), 240);
+    Gun ammo = new Gun(random(0, 2000), random(height - 300, height - 450), 240);
     gameObjects.add(ammo);
         
-  }
+  }*/
   
 }

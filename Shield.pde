@@ -28,7 +28,7 @@ class Shield extends GameObject implements Powerup
   
   void applyTo(Player p)
   {
-    p.shield = 300;
+    p.shield = 600;
   }
   
   void render()
@@ -41,7 +41,8 @@ class Shield extends GameObject implements Powerup
   
   void update()
   {
-    
+    pos.x+=random(-1, 1);
+    pos.y+=random(-1, 1);
     
   }
   

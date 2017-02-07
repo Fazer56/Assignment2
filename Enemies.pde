@@ -9,14 +9,16 @@ class Enemy extends GameObject
   PShape eye1;
   PShape eye2;
   PShape enemy;
+  float speed;
   float timeTolive;
   
   Enemy()
   {
   }
   
-  Enemy(float x1, float y1, float x2, float y2, float live)
+  Enemy(float x1, float y1, float x2, float y2, float live, float speed)
   {
+    this.speed = speed;
     this.timeTolive = live; 
     pos = new PVector(x1, y1);
     playerPos = new PVector(x2, y2);
@@ -54,8 +56,8 @@ class Enemy extends GameObject
   
   void update()
   {
-    pos.x = pos.x - cos(angle/180 * PI) * 2;
-    pos.y = pos.y - sin(angle/180 * PI) * 2;
+    pos.x = pos.x - cos(angle/180 * PI) * 5;
+    pos.y = pos.y - sin(angle/180 * PI) * 5;
     
     timeTolive--;
     if(timeTolive < 0)
@@ -69,6 +71,7 @@ class Enemy extends GameObject
       if(go instanceof Bullet)
       {
         Bullet b = (Bullet) go;
+        
         if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < 50)
         {
           Blood bl = new Blood(pos.x, pos.y, 120);
@@ -77,6 +80,7 @@ class Enemy extends GameObject
           gameObjects.remove(go);
           scream.rewind();
           scream.play();
+          score+=10;
           
         }
       }

@@ -8,7 +8,7 @@ class Bullet extends GameObject
   PVector forward;
   char fire;
   float rotation;
-    PShape gun;
+  PShape gun;
   PShape back;
   PShape middle;
   PShape front;

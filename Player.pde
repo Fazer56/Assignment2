@@ -96,7 +96,7 @@ class Player extends GameObject
       gun3 = createShape(ARC, 16, 50, pMass -20,pMass/4, radians(0), radians(90));
       gun4 = createShape(ARC, 30, 60, pMass/3, pMass/3, radians(0), radians(180));
       fill(0, 255, 255);
-      board = createShape(ELLIPSE, 0, 150, pMass * 3, pMass);
+      board = createShape(ELLIPSE, 0, 150, pMass * 2, pMass);
       noFill();
       strokeWeight(4);
       battery = createShape(RECT, -10, 130, pMass/4, pMass/1.5);
@@ -130,11 +130,11 @@ class Player extends GameObject
     fill(0);
     text(ammo, -90, -90);
     fill(0);
-      PShape gun;
-      PShape back;
-      PShape middle;
-      PShape front;
-      PShape tail;
+    PShape gun;
+    PShape back;
+    PShape middle;
+    PShape front;
+    PShape tail;
     gun = createShape(GROUP);
     fill(0);
     back = createShape(TRIANGLE, 15, -100, 0, -85, 0, -115);
@@ -184,9 +184,7 @@ class Player extends GameObject
       cy1 = cos(theta)*r + y2;
       strokeWeight(3);
       stroke(0);
-      println(x1);
-      println(cx);
-     
+      
       line(cx , cy, pos.x + 40, pos.y + 170);
       line(cx + 5, cy1, pos.x - 35, pos.y + 170);
       line(cx + 5 , cy1, pos.x - 45, pos.y + 170);
@@ -196,13 +194,20 @@ class Player extends GameObject
       line(cx1 + 5 , cy1, pos.x - 45, pos.y + 170);
       line(cx1 , cy1, pos.x - 40, pos.y + 170);
       
-      if(checkKey(up) && grav == false)
+      text("Score: " + score, pos.x - 500, 90);
+      
+      if(upCheck == false)
       {
-        jumpSound.rewind();
-        jumpSound.play();
+        if(checkKey(up) && grav == false)
+        {
+          jumpSound.rewind();
+          jumpSound.play();
        
-        bounce = true;
+          bounce = true;
+          upCheck = true;
        
+        }
+        
       }
    
       if(bounce == true)
@@ -212,6 +217,7 @@ class Player extends GameObject
         pos.add(jump);  
         acceleration.mult(0);
         jumpTime-=1;
+        //println(jumpTime);
         float spring = 10;
         for(int i = 0; i < 5; i++)
         {
@@ -222,9 +228,13 @@ class Player extends GameObject
         
         if(jumpTime < 0)
         {
+          
+          //println("iss");
           bounce = false;
           grav = true;
           
+          jumpTime = 30;
+          println(jumpTime);
         }
       }
       
@@ -244,6 +254,13 @@ class Player extends GameObject
       theta-=.5f;
     }
     
+    //width of the level
+    if(pos.x > 1800)
+    {
+      pos.x = 1800;
+      
+    }
+    
     if(checkKey(fire) && ammo > 0)
     {
       //tune.pause();
@@ -253,12 +270,10 @@ class Player extends GameObject
       
       if(shoot == true)
       {
-        
         Bullet b = new Bullet(pos.x + 20, pos.y + 30, 0, 10, 300);
         gameObjects.add(b);
         shoot = false;
         shootCounter = 0;
-       
         ammo--; 
       }
          
@@ -284,6 +299,7 @@ class Player extends GameObject
         {
           p.applyTo(this);
           gameObjects.remove(go);
+          score++;
           
         }
         
@@ -291,31 +307,38 @@ class Player extends GameObject
       
       if(go instanceof Block)
       {
+        if(pos.x > go.pos.x + 300)
+        {
+         
+          gameObjects.remove(go);
+        }
         Block b = (Block) go;
         if(bounce == false)
         {
           if(grav == false && jetFuel <= 0)
           {
-            if((this.pos.y + 180 >= go.pos.y|| this.pos.y + 180 <= go.pos.y) && this.pos.x  >= go.pos.x && this.pos.x <= go.pos.x + 100)
+            if((this.pos.y + 180 >= go.pos.y || this.pos.y + 180 <= go.pos.y) && this.pos.x + 40  >= go.pos.x && this.pos.x <= go.pos.x + 80)
             {
-              
+            
               this.pos.y = go.pos.y - 180;
             }
           }
-          if(grav == true && jetFuel <= 0)
+          if(grav == true && jetFuel <= 1)
           {
+            //
             /* //println("piss");
             PVector g = PVector.div(pGravity, mass);
             acceleration.add(g);
             pos.add(acceleration); 
             acceleration.mult(0);
              */
-           
-             pos.y+=.05;
-             if(this.pos.y >= go.pos.y - 180)
+            
+             pos.y = pos.y +.5;
+            if(pos.y >= height - 350)
              {
-               jumpTime = 30;
+               
                grav = false;
+               upCheck = false;
              }
           }
          }
@@ -328,30 +351,48 @@ class Player extends GameObject
         {
           pain.rewind();
           pain.play();
-          this.health--;
+          this.health-=20;
           gameObjects.remove(e);
+          
           
          }
         
       }
     }
       
-    if(frameCount % 240 == 0)
+    if(frameCount % 120 == 0)
     {
       
-      Enemy e = new Enemy(random(5000), height/2, this.pos.x, this.pos.y, 600);
+      Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
       gameObjects.add(e);
       
     }
+    
+    if(pos.x % 500 == 0)
+    {
+      JetPack j = new JetPack(random(pos.x + 300, pos.x + 350), random(height -300, height -450), 200);
+      gameObjects.add(j);
       
+    }
+    
+    if(pos.x % 300 == 0)
+    {
+      Gun ammo = new Gun(random(pos.x + 300, pos.x + 350), random(height - 300, height - 450), 200);
+      gameObjects.add(ammo);
+      
+    }
+    
     if(shield > 0)
     {
       strokeWeight(5);
       noFill();
       stroke(random(255), random(255), random(255));
       ellipse(pos.x, pos.y + 50, shieldW, shieldH);
-      shieldW++;
-      shieldH+=2;
+      shieldW+=.2;
+      shieldH+=.6;
+      strokeWeight(3);
+      //shield.rewind();
+      //shield.play();
       
       health = 100;
       
@@ -370,7 +411,6 @@ class Player extends GameObject
         jump.add(pVelocity);
         pos.add(jump);  
         acceleration.mult(0);
-        
         JetPack j = new JetPack(pos.x - 30, pos.y + 70);
         fill(250, random(100, 180), random(0, 10));
         triangle(pos.x - 30, pos.y + 100, pos.x - 45, pos.y + 85, pos.x -15 , pos.y + 85);
@@ -384,7 +424,6 @@ class Player extends GameObject
     }
     if(this.ammo > 0)
     {
-    
       Gun g = new Gun(pos.x + 20, pos.y + 50);
       stroke(38, 179, 10);
       line(pos.x + 20, pos.y + 50, mouseX, mouseY);
@@ -398,8 +437,8 @@ class Player extends GameObject
     
     if(health < 0)
     {
-      gameState = 1;
-      
+      pos.x = 100;
+      health = 100;
     }
  }
   
