@@ -22,7 +22,7 @@ class Enemy extends GameObject
     this.timeTolive = live; 
     pos = new PVector(x1, y1);
     playerPos = new PVector(x2, y2);
-    this.angle = atan2(pos.y - playerPos.y, pos.x - playerPos.x) / /*radians(180)*/ PI * 180;
+    //this.angle = atan2(pos.y - playerPos.y, pos.x - playerPos.x) / /*radians(180)*/ PI * 180;
     create();
   }
    
@@ -56,8 +56,8 @@ class Enemy extends GameObject
   
   void update()
   {
-    pos.x = pos.x - cos(angle/180 * PI) * 5;
-    pos.y = pos.y - sin(angle/180 * PI) * 5;
+    /*pos.x = pos.x - cos(angle/180 * PI) * 5;
+    pos.y = pos.y - sin(angle/180 * PI) * 5;*/
     
     timeTolive--;
     if(timeTolive < 0)
@@ -67,6 +67,14 @@ class Enemy extends GameObject
     for(int i = 0; i < gameObjects.size(); i++)
     {
       GameObject go = gameObjects.get(i);
+      
+      if(go instanceof Player)
+      {
+        Player p = (Player) go;
+        angle = atan2(pos.y - p.pos.y, pos.x - p.pos.x)  / /*radians(180)*/ PI * 180;
+        pos.x = pos.x - cos(angle/180 * PI) * 5;
+        pos.y = pos.y - sin(angle/180 * PI) * 5;
+      }
       
       if(go instanceof Bullet)
       {
@@ -81,8 +89,9 @@ class Enemy extends GameObject
           scream.rewind();
           scream.play();
           score+=10;
-          
+           
         }
+       
       }
     }
        

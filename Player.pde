@@ -243,7 +243,7 @@ class Player extends GameObject
       pVelocity.add(acceleration);
       forward.add(pVelocity);
       pos.add(PVector.mult(forward, -1));
-      theta+=.5f;
+      theta+=.2f;
     }
     
     if(checkKey(right))
@@ -251,7 +251,7 @@ class Player extends GameObject
       pVelocity.add(acceleration);
       forward.add(pVelocity);
       pos.add(forward);
-      theta-=.5f;
+      theta-=.2f;
     }
     
     //width of the level
@@ -307,11 +307,7 @@ class Player extends GameObject
       
       if(go instanceof Block)
       {
-        if(pos.x > go.pos.x + 300)
-        {
-         
-          gameObjects.remove(go);
-        }
+        
         Block b = (Block) go;
         if(bounce == false)
         {
@@ -385,11 +381,11 @@ class Player extends GameObject
     if(shield > 0)
     {
       strokeWeight(5);
-      noFill();
+      fill(0, random(255), random(255), random(255));
       stroke(random(255), random(255), random(255));
       ellipse(pos.x, pos.y + 50, shieldW, shieldH);
-      shieldW+=.2;
-      shieldH+=.6;
+      shieldW+=1;
+      shieldH+=2;
       strokeWeight(3);
       //shield.rewind();
       //shield.play();
@@ -398,8 +394,8 @@ class Player extends GameObject
       
       if(shieldW > 150 && shieldH > 250)
       {
-        shieldW = shieldW * -1;
-        shieldH = shieldH * -1;        
+        shieldW = 150;
+        shieldH = 250;        
       }
       shield--;
       
@@ -439,6 +435,7 @@ class Player extends GameObject
     {
       pos.x = 100;
       health = 100;
+      score = 0;
     }
  }
   
