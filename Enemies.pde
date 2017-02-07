@@ -9,13 +9,15 @@ class Enemy extends GameObject
   PShape eye1;
   PShape eye2;
   PShape enemy;
+  float timeTolive;
   
   Enemy()
   {
   }
   
-  Enemy(float x1, float y1, float x2, float y2)
+  Enemy(float x1, float y1, float x2, float y2, float live)
   {
+    this.timeTolive = live; 
     pos = new PVector(x1, y1);
     playerPos = new PVector(x2, y2);
     this.angle = atan2(pos.y - playerPos.y, pos.x - playerPos.x) / /*radians(180)*/ PI * 180;
@@ -55,6 +57,11 @@ class Enemy extends GameObject
     pos.x = pos.x - cos(angle/180 * PI) * 2;
     pos.y = pos.y - sin(angle/180 * PI) * 2;
     
+    timeTolive--;
+    if(timeTolive < 0)
+    {
+      gameObjects.remove(this);
+    }
     for(int i = 0; i < gameObjects.size(); i++)
     {
       GameObject go = gameObjects.get(i);

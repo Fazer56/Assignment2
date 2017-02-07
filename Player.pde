@@ -329,10 +329,10 @@ class Player extends GameObject
       }
     }
       
-    if(frameCount % 60 == 0)
+    if(frameCount % 180 == 0)
     {
       
-      Enemy e = new Enemy(width/2, height/2, this.pos.x, this.pos.y);
+      Enemy e = new Enemy(random(5000), height/2, this.pos.x, this.pos.y, 600);
       gameObjects.add(e);
       
     }
@@ -350,9 +350,9 @@ class Player extends GameObject
         gameObjects.add(j);
         jetFuel--;
         
-        if(pos.y < height - 600)
+        if(pos.y < height - 900)
         {
-          pos.y = height - 600;
+          pos.y = height - 900;
         }
     }
     if(this.ammo > 0)
@@ -362,7 +362,8 @@ class Player extends GameObject
       stroke(38, 179, 10);
       line(pos.x + 20, pos.y + 50, mouseX, mouseY);
       noCursor();
-      ellipse(mouseX, mouseY, 10, 10);
+      fill(255,0,0);
+      ellipse(mouseX, mouseY, 20, 20);
       stroke(0);
       gameObjects.add(g);
       

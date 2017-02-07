@@ -1,8 +1,8 @@
 
 void setup()
 {
-   size(1000, 800, P3D);
-   //fullScreen(P3D);
+   //size(1000, 800, P3D);
+   fullScreen(P3D);
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    img2 = loadImage("back.png");
@@ -26,6 +26,8 @@ void setup()
    Block b5 = new Block(b.pos.x - 300, height - 170, 100, 50);
    Block b6 = new Block(b.pos.x - 200, height - 170, 100, 50);
    Block b7 = new Block(b.pos.x - 100, height - 170, 100, 50);
+   Block b8 = new Block(3000, height - 800, 100, 50);
+   Shield shield = new Shield( 3100, height - 850);
    
    Block[] blocks = new Block[40];
    
@@ -41,7 +43,7 @@ void setup()
      gap+= 100;
    }
    
-   Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y);
+   Enemy e = new Enemy(width/2, height/2, player1.pos.x, player1.pos.y, 120);
    
    gameObjects.add(player1);
    gameObjects.add(b);
@@ -53,6 +55,8 @@ void setup()
    gameObjects.add(b6);
    gameObjects.add(b7);
    gameObjects.add(e);
+   gameObjects.add(b8);
+   gameObjects.add(shield);
    
    
    
@@ -171,7 +175,7 @@ void running()
     if(frameCount % 120 == 0)
     {
       Level c = new Level();
-      c.pos =new PVector(random(width), random(45, height/2.5));
+      c.pos =new PVector(random(5000), random(45, height/2.5));
       gameObjects.add(c);
       
       //gameObjects.remove(c);
@@ -181,27 +185,15 @@ void running()
   
   if(frameCount % 360 == 0)
   {
-    JetPack j = new JetPack(random(300, width + 500), random(height -300, height -450), 240);
+    JetPack j = new JetPack(random(300, 5000), random(height -300, height -450), 240);
     gameObjects.add(j);
   }
   
   if (frameCount % 240 == 0)
   {
-    Gun ammo = new Gun(random(0, width), random(height - 300, height - 450), 240);
+    Gun ammo = new Gun(random(0, 5000), random(height - 300, height - 450), 240);
     gameObjects.add(ammo);
-    
-    
+        
   }
-  
-  if (frameCount % 60 == 0)
-  {
-    Shield ammo = new Shield(random(0, width), random(height - 300, height - 450));
-    gameObjects.add(ammo);
-    
-    
-  }
-  
-  
-
   
 }
