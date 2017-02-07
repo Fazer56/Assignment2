@@ -9,13 +9,14 @@ class JetPack extends GameObject implements Powerup
   PShape top;
   int timeTolive;
   
-  JetPack()
-  {
-    timeTolive = 300;
-  }
-  
   JetPack(float x, float y)
   {
+    pos = new PVector(x, y);
+  }
+  
+  JetPack(float x, float y, int live)
+  {
+    this.timeTolive = live;
     pos = new PVector(x, y);
   }
   

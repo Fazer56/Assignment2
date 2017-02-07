@@ -179,17 +179,15 @@ void running()
     }
     
   
-  if(frameCount % 60 == 0)
+  if(frameCount % 360 == 0)
   {
-    JetPack j = new JetPack();
-    j.pos = new PVector(random(300, width + 500), random(height -300, height -450));
+    JetPack j = new JetPack(random(300, width + 500), random(height -300, height -450), 240);
     gameObjects.add(j);
   }
   
   if (frameCount % 240 == 0)
   {
-    Gun ammo = new Gun();
-    ammo.pos = new PVector(random(0, width), random(height - 300, height - 450));
+    Gun ammo = new Gun(random(0, width), random(height - 300, height - 450), 240);
     gameObjects.add(ammo);
     
     

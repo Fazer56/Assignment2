@@ -38,6 +38,7 @@ class Player extends GameObject
   PShape gun;
   PShape lights;
   PShape box;
+  PShape battery;
   char up, down, left, right, fire;
   int jumpTime;
   int gravTime;
@@ -73,23 +74,6 @@ class Player extends GameObject
   
   void create()
   {
-      /*ship = createShape(GROUP);
-      fill(255, 0, 0);
-      pod = createShape(RECT, -35, -55, mass, mass);
-      fill(0);
-      body = createShape(RECT, 30, -30, mass-30, mass/1.5);
-      head = createShape(ARC, 10, - 50, mass-25, mass-25, radians(180), radians(360));
-      box = createShape(RECT, -78, -20, mass/2, mass/10);
-      noFill();
-      strokeWeight(7);
-      wheel1 = createShape(ELLIPSE, -20,  45, mass-70, mass-70);
-      wheel2 = createShape(ELLIPSE, 40,  45, mass-70, mass-70);
-      ship.addChild(box);
-      ship.addChild(pod);
-      ship.addChild(head);
-      ship.addChild(body);
-      ship.addChild(wheel1);
-      ship.addChild(wheel2);*/
       
       ship = createShape(GROUP);
       fill(255, 255, 255);
@@ -105,8 +89,10 @@ class Player extends GameObject
       gun3 = createShape(ARC, 16, 50, pMass -20,pMass/4, radians(0), radians(90));
       gun4 = createShape(ARC, 30, 60, pMass/3, pMass/3, radians(0), radians(180));
       fill(0, 255, 255);
-      board = createShape(RECT, -50, 125, pMass * 2, pMass - 20);
+      board = createShape(ELLIPSE, 0, 150, pMass * 3, pMass);
       noFill();
+      strokeWeight(4);
+      battery = createShape(RECT, -10, 130, pMass/4, pMass/1.5);
       strokeWeight(7);
       wheel1 = createShape(ELLIPSE, -40,  170, pMass-70,pMass-70);
       wheel2 = createShape(ELLIPSE, 40,  170, pMass-70, pMass-70);
@@ -121,6 +107,7 @@ class Player extends GameObject
       ship.addChild(board);
       ship.addChild(wheel1);
       ship.addChild(wheel2);
+      ship.addChild(battery);
   }
   
   
@@ -178,7 +165,7 @@ class Player extends GameObject
       
       x2 = pos.x - 40;
       y2 = pos.y + 170;
-      r =15;
+      r =10;
       float cx;
       float cy;
       float cx1;
@@ -222,7 +209,7 @@ class Player extends GameObject
         for(int i = 0; i < 5; i++)
         {
           fill(255,0,0);
-          ellipse(pos.x, pos.y + (140 + spring), 15, 10);
+          ellipse(pos.x, pos.y + (180 + spring), 25, 15);
           spring+=10;
         }
         

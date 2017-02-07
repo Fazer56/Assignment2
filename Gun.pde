@@ -8,20 +8,21 @@ class Gun extends GameObject implements Powerup
   PShape tail;
   int timeTolive;
   
-  Gun()
-  {
-    timeTolive = 300;
-  }
-  
   Gun(float x, float y)
   {
+    pos = new PVector(x, y);
+  }
+  
+  Gun(float x, float y, int live)
+  {
+    this.timeTolive = live;
     pos = new PVector(x, y);
     
   }
   
   void applyTo(Player p)
   {
-    p.ammo++;
+    p.ammo+=5;
     reload.rewind();
     reload.play();
   }
@@ -57,18 +58,6 @@ class Gun extends GameObject implements Powerup
       gameObjects.remove(this);
       
     }
-    /*for(int i = 0 ; i < gameObjects.size() ; i ++)
-    {
-      GameObject go = gameObjects.get(i);
-      if(go instanceof Player)
-      {
-       
-        
-       
-      }
-      
-    }*/
-    
   }
   
 }
