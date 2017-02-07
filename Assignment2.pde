@@ -142,9 +142,9 @@ void draw()
     {
       background( 20, 120,255);
       float imageX =0;
-      for(int i = 0; i < 3; i++)
+      for(int i = 0; i < 5; i++)
       {
-        image(img2, imageX - 1000, 0, width, height);
+        image(img2, imageX - 3000, 0, width, height);
         imageX+= 1920;
       }
       
@@ -192,6 +192,15 @@ void running()
     
     
   }
+  
+  if (frameCount % 60 == 0)
+  {
+    Shield ammo = new Shield(random(0, width), random(height - 300, height - 450));
+    gameObjects.add(ammo);
+    
+    
+  }
+  
   
 
   
