@@ -13,7 +13,7 @@ class GameOver extends GameObject
     pushMatrix();
     translate(pos.x, pos.y);
     fill(0);
-    rect( -50, -100, 1500, 1500);
+    rect( 200, -200, 1500, 1000);
     textFont(font);
     textSize(40);
     fill(255,255,255);

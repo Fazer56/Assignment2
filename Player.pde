@@ -67,7 +67,7 @@ class Player extends GameObject
     this.theta = theta;
     this.aimTheta = aimTheta;
     this.ammo = 10;
-    this.health = 100;
+    this.health = 5 /*100*/;
     this.shield = 0;
     this.shieldW = 0;
     this.shieldH = 0;
@@ -424,7 +424,7 @@ class Player extends GameObject
       
     }
     
-    if(pos.x % 300 == 0 && pos.x < 1500)
+    if(pos.x % 200 == 0 && pos.x < 1600)
     {
       Gun ammo = new Gun(random(pos.x + 300, pos.x + 350), random(height - 300, height - 450), 200);
       gameObjects.add(ammo);
