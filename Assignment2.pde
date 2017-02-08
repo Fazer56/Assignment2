@@ -89,7 +89,7 @@ int score2 = 0;
 int gameOver = 230;
 PImage img, img2;
 PFont font, font2;
-int gameState = 0;
+int gameState = 2;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();

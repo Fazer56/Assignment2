@@ -67,7 +67,7 @@ class Player extends GameObject
     this.gravTime = 30;
     this.theta = theta;
     this.aimTheta = aimTheta;
-    this.ammo = 10;
+    this.ammo = 30;
     this.health = 100;
     this.shield = 0;
     this.shieldW = 0;
@@ -163,11 +163,7 @@ class Player extends GameObject
     popMatrix();
     
   }
-  
-  //Using newtons second law to apply force
-  float jHeight = 120;
-  float posY = 0;
-  
+    
   void update()
   {
        camera(pos.x, height/2, (height/2)/tan(PI/6), pos.x, height/2, 0, 0, 1, 0);
@@ -402,11 +398,12 @@ class Player extends GameObject
       }
       
     }
+    //create the boss
     if(pos.x > 1300)
     {
      if(bossCreate == true)
      {
-        Boss boss = new Boss(1900, height -200, 100, 0);
+        Boss boss = new Boss(1900, height -200, 10, 0);
         gameObjects.add(boss);
         bossCreate = false;
      }

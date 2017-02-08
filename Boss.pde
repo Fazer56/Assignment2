@@ -120,14 +120,18 @@ class Boss extends GameObject
       Blood bl2 = new Blood(pos.x + 40, pos.y, 120);
       dead.rewind();
       dead.play();
+      score+= 1000;
       gameObjects.add(bl);
       gameObjects.add(bl2);
+      Winning w = new Winning(pos.x - 1000, 500, 180);
+      gameObjects.add(w);
       gameObjects.remove(this);
       winning.rewind();
       winning.play();
-
+      score2 = score;
+      score = 0;
       
-      
+     
     }
 
   }//end update
