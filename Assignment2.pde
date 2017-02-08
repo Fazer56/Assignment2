@@ -29,7 +29,7 @@ void setup()
    Block b7 = new Block(b.pos.x - 110, height - 170, 110, 50);
    Block b8 = new Block(3000, height - 800, 110, 50);
    Shield shield = new Shield( 1200, height - 850);
-   //Boss boss = new Boss(800, height -200, 50);
+   Boss boss = new Boss(800, height -200, 100, 0);
    
    Block[] blocks = new Block[40];
    
@@ -58,7 +58,7 @@ void setup()
    gameObjects.add(b7);
    gameObjects.add(e);
    gameObjects.add(b8);
-   //gameObjects.add(boss);
+   gameObjects.add(boss);
    
    gameObjects.add(shield);
    

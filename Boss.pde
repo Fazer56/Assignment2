@@ -3,16 +3,20 @@ class Boss extends GameObject
   PShape bot;
   PShape head;
   PShape body;
+  PShape gunner;
+  PShape board;
   int health;
   float theta;
   float bMass;
   
-  Boss(float x, float y, int health, float theta, float mass)
+  Boss(float x, float y, int health, float theta)
   {
     this.health = health;
     this.theta = theta;
     this.bMass = mass;
     pos = new PVector(x, y);
+    create();
+    
   }
   
  /* Boss(float x, float y, float mass)
@@ -24,12 +28,17 @@ class Boss extends GameObject
   void create()
   {
     bot = createShape(GROUP);
-    head = createShape(ELLIPSE, 0, 0, 40, 40);
-    body = createShape(ELLIPSE, 0, 40, 40, 40);
-    
+    fill(0);
+    head = createShape(ELLIPSE, 0, 0, 70, 40);
+    body = createShape(ELLIPSE, 0, 40, 70, 40);
+    fill(255,0,0);
+    gunner = createShape(RECT, -40, 20, 30, 10);
+    fill(0, 0, 255);
+    board = createShape(RECT, -35, 60, 80, 30);
     bot.addChild(head);
     bot.addChild(body);
-    
+    bot.addChild(gunner);
+    bot.addChild(board);
     
   }
   

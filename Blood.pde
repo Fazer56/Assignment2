@@ -59,9 +59,13 @@ class Blood extends GameObject
   void update()
   {
     timeTolive--;
-    if(timeTolive < 60)
+    if(timeTolive > 60)
     {
-      fill(137, 132, 124);
+      fill(255, 255, 255);
+      textSize(25);
+      textFont(font2);
+      text(" + 10", pos.x + 10 , pos.y + 30);
+      
       
     }
     if(timeTolive < 0)

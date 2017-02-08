@@ -357,23 +357,37 @@ class Player extends GameObject
         
       }
     }
-      
-    if(frameCount % 120 == 0)
+    
+    if(pos.x > 700)
+    { 
+      if(frameCount % 60 == 0)
+      {
+        
+        Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
+        gameObjects.add(e);
+        
+      }
+    }
+    else
     {
-      
-      Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
-      gameObjects.add(e);
+      if(frameCount % 180 == 0)
+      {
+        
+        Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
+        gameObjects.add(e);
+        
+      }
       
     }
     
-    if(pos.x % 500 == 0)
+    if(pos.x % 500 == 0 && pos.x < 1500)
     {
       JetPack j = new JetPack(random(pos.x + 300, pos.x + 350), random(height -300, height -450), 200);
       gameObjects.add(j);
       
     }
     
-    if(pos.x % 300 == 0)
+    if(pos.x % 300 == 0 && pos.x < 1500)
     {
       Gun ammo = new Gun(random(pos.x + 300, pos.x + 350), random(height - 300, height - 450), 200);
       gameObjects.add(ammo);
@@ -393,7 +407,7 @@ class Player extends GameObject
       //shield.play();
       if(shield > 530)
         {
-          fill(0);
+          fill(255,255,255);
           textSize(25);
           textFont(font2);
           text("SHIELD!", pos.x + 80, pos.y);
@@ -425,12 +439,13 @@ class Player extends GameObject
         jet.rewind();
         jet.play();
         
-        if(jetFuel > 230)
+        if(jetFuel > 200)
         {
-          fill(0);
+          fill(255,255,255);
           textSize(25);
           textFont(font2);
           text("JETPACK!", pos.x + 80, pos.y);
+          text("AMMO X 100!!", pos.x + 80, pos.y + 40);
           
         }
         
