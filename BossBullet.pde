@@ -32,12 +32,12 @@ class BossBullet extends GameObject
     translate(pos.x, pos.y);
      gun = createShape(GROUP);
     fill(0);
-    back = createShape(TRIANGLE, 0, 0, -15, 15, -15, -15);
-    fill(255,random(255),255);
+    back = createShape(TRIANGLE, 0, 0, 15, -15, 15, 15);
+    fill(0, 0, 255);
     middle = createShape(RECT, -5, -5, 20, 10);
-    fill(255, 0, 0);
+    fill(0);
     front = createShape(ELLIPSE, 20, 0, 20, 15);
-    fill(255, 150, 0);
+    fill(255, 0, 0);
     tail = createShape(ELLIPSE, -15, 0, 20, 10);
     gun.addChild(tail);
     gun.addChild(back);

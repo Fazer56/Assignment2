@@ -1,17 +1,20 @@
-boolean upCheck = false;
-boolean bounce = false;
-boolean grav = false;
-boolean jetPack = false;
-boolean shoot = true;
-float shootCounter;
 
-float x1;
-float y1;
-float x2;
-float y2;
 
 class Player extends GameObject
 {
+  boolean bossCreate = true;
+  boolean upCheck = false;
+  boolean bounce = false;
+  boolean grav = false;
+  boolean jetPack = false;
+  boolean shoot = true;
+  float shootCounter;
+  
+  
+  float x1;
+  float y1;
+  float x2;
+  float y2;
   float theta;
   float aimTheta;
   float r;
@@ -315,9 +318,11 @@ class Player extends GameObject
       {
         if (go instanceof Boss)
         {
-           BossBullet b = new BossBullet(go.pos.x, go.pos.y, 0, 20, 100, this.pos.x, this.pos.y);
+           BossBullet b = new BossBullet(go.pos.x - 25, go.pos.y + 25, 0, 20, 300, this.pos.x, this.pos.y);
            gameObjects.add(b);
-        
+           
+           boss.rewind();
+           boss.play();
         }
       }
       if(go instanceof Block)
@@ -351,18 +356,29 @@ class Player extends GameObject
         if(go instanceof Enemy)
         {  
           Enemy e = (Enemy) go;
-        if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < mass + 25 )
+        if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < mass - 20)
         {
           pain.rewind();
           pain.play();
-          this.health-=20;
-          gameObjects.remove(e);
-          
-          
-         }
-        
+          this.health-=2;
+          gameObjects.remove(e);  
+        } 
       }
-    }
+      if(go instanceof BossBullet)
+      {
+         BossBullet bb = (BossBullet) go;
+         if(dist(this.pos.x, this.pos.y - 30, go.pos.x, go.pos.y) < mass)
+         {
+           pain.rewind();
+           pain.play();
+           this.health-=5;
+           gameObjects.remove(bb);
+           
+         }
+           
+      }
+      
+    }//end gameObjects for()
     
     if(pos.x > 700)
     { 
@@ -381,12 +397,25 @@ class Player extends GameObject
         
         Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
         gameObjects.add(e);
-        
          
-        
       }
       
     }
+    if(pos.x > 1300)
+    {
+     if(bossCreate == true)
+     {
+        Boss boss = new Boss(1900, height -200, 100, 0);
+        gameObjects.add(boss);
+        bossCreate = false;
+     }
+      
+   }
+   if(pos.x < 1300)
+   {
+      gameObjects.remove(boss);
+      
+   }
     
     if(pos.x % 500 == 0 && pos.x < 1500)
     {
@@ -413,6 +442,7 @@ class Player extends GameObject
       strokeWeight(3);
       //shield.rewind();
       //shield.play();
+      pain.pause();
       if(shield > 530)
         {
           fill(255,255,255);

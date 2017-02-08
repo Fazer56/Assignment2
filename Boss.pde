@@ -59,6 +59,10 @@ class Boss extends GameObject
   {
     pushMatrix();
     translate(pos.x, pos.y);
+    noFill();
+    rect(-50, -70, 100, 20);
+    fill(255,0,0);
+    rect(-50, -70, health, 20);
     shape(bot);
     popMatrix();
   }
@@ -66,8 +70,6 @@ class Boss extends GameObject
   void update()
   {
     
-    boss.rewind();
-    boss.play();
     
     if(upDown == false)
     {
@@ -96,13 +98,32 @@ class Boss extends GameObject
       }
       
     }
-   
-   if(frameCount % 60 == 0)
-   {
     
-     
-   }
-
+    for(int i = 0; i < gameObjects.size(); i++)
+    {
+      GameObject go = gameObjects.get(i);
+      if(go instanceof Bullet)
+      {
+        if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < 80)
+        {
+          gameObjects.remove(go);
+          health-=10;
+          
+        }
+      }
+      
+    }//end gameObjects for()
+    
+    if(health < 0)
+    {
+      Blood bl = new Blood(pos.x, pos.y, 120);
+      Blood bl2 = new Blood(pos.x + 40, pos.y, 120);
+      gameObjects.add(bl);
+      gameObjects.add(bl2);
+      gameObjects.remove(this);
+      
+      
+    }
 
   }//end update
   
