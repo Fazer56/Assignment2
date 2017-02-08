@@ -193,6 +193,7 @@ class Player extends GameObject
       textFont(font);
       text("Score: " + score, pos.x - 500, 90);
       
+      //jumping
       if(upCheck == false)
       {
         if(checkKey(up) && grav == false)
@@ -235,6 +236,7 @@ class Player extends GameObject
         }
       }
       
+    //moving left and right
     if(checkKey(left))
     {
       pVelocity.add(acceleration);
@@ -318,7 +320,6 @@ class Player extends GameObject
       if(go instanceof Block)
       {
         
-        Block b = (Block) go;
         if(bounce == false)
         {
           if(grav == false && jetFuel <= 0)
@@ -370,6 +371,7 @@ class Player extends GameObject
       
     }//end gameObjects for()
     
+    //increasing the spawn rate and speed of enemies when a certain point in the level has been reached
     if(pos.x > 700)
     { 
       if(frameCount % 60 == 0)
@@ -396,7 +398,7 @@ class Player extends GameObject
     {
      if(bossCreate == true)
      {
-        Boss boss = new Boss(1900, height -200, 10, 0);
+        Boss boss = new Boss(1900, height -200, 100, 0);
         gameObjects.add(boss);
         bossCreate = false;
      }
@@ -407,7 +409,7 @@ class Player extends GameObject
       gameObjects.remove(boss);
       
    }
-    
+    //spawning pickups at intervals
     if(pos.x % 500 == 0 && pos.x < 1500)
     {
       JetPack j = new JetPack(random(pos.x + 300, pos.x + 350), random(height -300, height -450), 200);

@@ -1,3 +1,4 @@
+//class for blocks 
 class Block extends GameObject
 {
   float blockW;

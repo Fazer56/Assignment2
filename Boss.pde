@@ -1,3 +1,4 @@
+//class for the game boss
 class Boss extends GameObject
 {
   PShape bot;
@@ -64,7 +65,7 @@ class Boss extends GameObject
   void update()
   {
     
-    
+    //move the boss up and down on the same axis
     if(upDown == false)
     {
          

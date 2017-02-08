@@ -1,3 +1,4 @@
+//blood class
 class Blood extends GameObject
 {
  

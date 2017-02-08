@@ -24,6 +24,7 @@ void setup()
     tune.rewind();
     tune.play();
    
+   //create a player and some blocks to start the game with
    Player player1 = new Player(100, height-250, 2, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 110, 50);
    Block b1 = new Block(b.pos.x + b.blockW, height - 170, 110, 50);
@@ -36,11 +37,10 @@ void setup()
    Block b8 = new Block(3000, height - 800, 110, 50);
    Shield shield = new Shield( 1200, height - 850);
    
+   //an array of block objects with random height ranging from 60/-60
    Block[] blocks = new Block[40];
-   
    float high = height - 200;
    float gap = 110;
-   
    for(int i = 0 ; i< blocks.length-1; i++)
    {
      stroke(0);
@@ -64,6 +64,7 @@ void setup()
    
 }
 
+//music player library for sound effects
 import ddf.minim.*;
 Minim minim;
 AudioPlayer tune;
@@ -83,12 +84,14 @@ int score2 = 0;
 int gameOver = 230;
 PImage img, img2;
 PFont font, font2;
-int gameState = 2;
+int gameState = 0;
 float imgY = 0;
 
+//arraylist to stor gameObjects
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
 boolean[] keys = new boolean[1000];
 
+//for multiple key presses at the same time
 void keyPressed()
 { 
   keys[keyCode] = true;
@@ -112,12 +115,14 @@ boolean checkKey(int k)
 
 void draw()
 {
+  //for the start menu image
   imgY++;
   if(imgY >= height/4)
   {
     imgY = height/4;
   }
   
+  //switch statement for switching between gamestates
   switch(gameState)
   {
     case 0 :
@@ -154,8 +159,10 @@ void draw()
   
 }
 
+//function that iniatializes the game
 void running()
-{          
+{   
+    
     for( int i  = 0; i < gameObjects.size(); i++)
     {
       GameObject go = gameObjects.get(i);
