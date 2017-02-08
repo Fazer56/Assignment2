@@ -33,6 +33,10 @@ void setup()
    
     tune.rewind();
     tune.play();
+    
+   //load game instructions
+   table = loadTable("data.tsv", "header");
+   loadInstructions();
    
    //create a player and some blocks to start the game with
    Player player1 = new Player(100, height-250, 2, 0, 50, 'w', ' ', 'a', 'd', 's');
@@ -89,6 +93,8 @@ AudioPlayer dead;
 AudioPlayer shieldSound;
 AudioPlayer winning;
 
+
+ArrayList <Instructions> insts = new ArrayList <Instructions>();
 int score = 0;
 int score2 = 0;
 int gameOver = 230;
@@ -96,6 +102,7 @@ PImage img, img2;
 PFont font, font2;
 int gameState = 0;
 float imgY = 0;
+Table table;
 
 //arraylist to stor gameObjects
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
@@ -137,6 +144,8 @@ void draw()
   {
     case 0 :
     {
+      
+      
       bounceBall();
       break;
     }
