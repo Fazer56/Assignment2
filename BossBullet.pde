@@ -1,4 +1,4 @@
-class Bullet extends GameObject
+class BossBullet extends GameObject
 {
   float theta;
   float size;
@@ -7,22 +7,23 @@ class Bullet extends GameObject
   float alive;
   PVector forward;
   char fire;
-  float rotation;
+  float direction;
   PShape gun;
   PShape back;
   PShape middle;
   PShape front;
   PShape tail;
+  PVector playerP;
   
-  Bullet(float x, float y, float theta, float size, float timeTolive)
+  BossBullet(float x, float y, float theta, float size, float timeTolive, float x1, float y1)
   {
     this.theta = theta;
     this.size = size;
     this.timeTolive = timeTolive;
     this.alive = 0;
     pos = new PVector(x, y);
-    forward = new PVector(mouseX, mouseY);
-    rotation = atan2(forward.y - pos.y, forward.x - pos.x) / radians(180) * 180;
+    playerP = new PVector(x1, y1);
+    this.direction = atan2(pos.y - playerP.y, pos.x - playerP.x) / /*radians(180)*/ PI * 180;
   }
   
   void render()
@@ -48,9 +49,10 @@ class Bullet extends GameObject
   
   void update()
   {
-    
-    pos.x = pos.x + cos(rotation/180*PI) * speed;
-    pos.y = pos.y + sin(rotation/180*PI)* speed;
+    pos.x = pos.x - cos(direction/180 * PI) * 5;
+    pos.y = pos.y - sin(direction/180 * PI) * 5;
+   // pos.x = pos.x + cos(rotation/180*PI) * speed;
+    //pos.y = pos.y + sin(rotation/180*PI)* speed;
     
     //pos.add(PVector.mult(forward, speed));
     timeTolive--;
@@ -61,10 +63,13 @@ class Bullet extends GameObject
       
     }
     
+  
     
     
+
     
-  }//end update
+    
+  }
  
   
 }

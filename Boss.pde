@@ -65,6 +65,10 @@ class Boss extends GameObject
   
   void update()
   {
+    
+    boss.rewind();
+    boss.play();
+    
     if(upDown == false)
     {
          
@@ -92,10 +96,14 @@ class Boss extends GameObject
       }
       
     }
-       
-
-
+   
+   if(frameCount % 60 == 0)
+   {
     
-  }
+     
+   }
+
+
+  }//end update
   
 }

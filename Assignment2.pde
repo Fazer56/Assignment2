@@ -17,6 +17,10 @@ void setup()
    scream = minim.loadFile("Scream.wav");
    pain = minim.loadFile("Pain.wav");
    jet = minim.loadFile("jet2.mp3");
+   boss = minim.loadFile("Laugh.wav");
+   
+  tune.rewind();
+  tune.play();
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 110, 50);
@@ -73,6 +77,7 @@ AudioPlayer reload;
 AudioPlayer scream;
 AudioPlayer pain;
 AudioPlayer jet;
+AudioPlayer boss;
 
 int score = 0;
 int score2 = 0;
@@ -148,9 +153,7 @@ void draw()
         imageX+= 1920;
       }
       
-      running();
-      tune.play();
-      tune.pause();
+      running(); 
       break;
       
     }
@@ -159,7 +162,9 @@ void draw()
 }
 
 void running()
-{
+{      
+    
+      
        
     for( int i  = 0; i < gameObjects.size(); i++)
     {
@@ -176,18 +181,5 @@ void running()
       //gameObjects.remove(c);
     }
     
-  
- /* if(frameCount % 360 == 0)
-  {
-    JetPack j = new JetPack(random(300, 5000), random(height -300, height -450), 240);
-    gameObjects.add(j);
-  }*/
-  
-  /*if (frameCount % 240 == 0)
-  {
-    Gun ammo = new Gun(random(0, 2000), random(height - 300, height - 450), 240);
-    gameObjects.add(ammo);
-        
-  }*/
   
 }

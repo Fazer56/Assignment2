@@ -122,6 +122,7 @@ class Player extends GameObject
   {
     pushMatrix();
     translate(pos.x, pos.y);
+    textFont(font);
     textSize(30);
     noFill();
     rect(-50, -70, 100, 20);
@@ -302,11 +303,23 @@ class Player extends GameObject
           p.applyTo(this);
           gameObjects.remove(go);
           score++;
+          fill(255,255,255);
+          textSize(25);
+          textFont(font2);
+          text(" + 1", pos.x + 80, pos.y);
           
         }       
         
       }
-      
+      if(frameCount % 60 == 0)
+      {
+        if (go instanceof Boss)
+        {
+           BossBullet b = new BossBullet(go.pos.x, go.pos.y, 0, 20, 100, this.pos.x, this.pos.y);
+           gameObjects.add(b);
+        
+        }
+      }
       if(go instanceof Block)
       {
         
@@ -323,13 +336,6 @@ class Player extends GameObject
           }
           if(grav == true && jetFuel <= 1)
           {
-            //
-            /* //println("piss");
-            PVector g = PVector.div(pGravity, mass);
-            acceleration.add(g);
-            pos.add(acceleration); 
-            acceleration.mult(0);
-             */
             
              pos.y = pos.y +.5;
             if(pos.y >= height - 350)
@@ -375,6 +381,8 @@ class Player extends GameObject
         
         Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
         gameObjects.add(e);
+        
+         
         
       }
       
