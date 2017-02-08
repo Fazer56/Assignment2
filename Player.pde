@@ -1,5 +1,3 @@
-
-
 class Player extends GameObject
 {
   boolean bossCreate = true;
@@ -10,13 +8,11 @@ class Player extends GameObject
   boolean shoot = true;
   float shootCounter;
   
-  
   float x1;
   float y1;
   float x2;
   float y2;
   float theta;
-  float aimTheta;
   float r;
   PVector jump;
   int lives;
@@ -26,7 +22,6 @@ class Player extends GameObject
   PVector forward;
   PVector aim;
   float pMass; 
-  PVector pos;
   PShape pod;
   PShape ship;
   PShape gun1;
@@ -53,7 +48,7 @@ class Player extends GameObject
   float shieldH;
 
   
-  Player(float x, float y, int lives, float theta, float aimTheta, float mass, char up, char down, char left, char right, char fire)
+  Player(float x, float y, int lives, float theta, float mass, char up, char down, char left, char right, char fire)
   {
     this.pMass = mass;
     this.lives = lives;
@@ -66,7 +61,6 @@ class Player extends GameObject
     this.jetFuel = 0;
     this.gravTime = 30;
     this.theta = theta;
-    this.aimTheta = aimTheta;
     this.ammo = 30;
     this.health = 100;
     this.shield = 0;
@@ -269,11 +263,10 @@ class Player extends GameObject
       //tune.pause();
        shotgun.rewind();
        shotgun.play();
-       
       
       if(shoot == true)
       {
-        Bullet b = new Bullet(pos.x + 20, pos.y + 30, 0, 10, 300);
+        Bullet b = new Bullet(pos.x + 20, pos.y + 30, 10, 300);
         gameObjects.add(b);
         shoot = false;
         shootCounter = 0;
@@ -315,7 +308,7 @@ class Player extends GameObject
       {
         if (go instanceof Boss)
         {
-           BossBullet b = new BossBullet(go.pos.x - 25, go.pos.y + 25, 0, 20, 300, this.pos.x, this.pos.y);
+           BossBullet b = new BossBullet(go.pos.x - 25, go.pos.y + 25, 300, this.pos.x, this.pos.y);
            gameObjects.add(b);
            
            boss.rewind();
@@ -382,7 +375,7 @@ class Player extends GameObject
       if(frameCount % 60 == 0)
       {
         
-        Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
+        Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, 600, 8);
         gameObjects.add(e);
         
       }
@@ -392,7 +385,7 @@ class Player extends GameObject
       if(frameCount % 180 == 0)
       {
         
-        Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, this.pos.x, this.pos.y, 600, 5);
+        Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, 600, 5);
         gameObjects.add(e);
          
       }
@@ -432,8 +425,9 @@ class Player extends GameObject
     if(shield > 0)
     {
       strokeWeight(5);
-      fill(0, random(255), random(255), random(255));
+      
       stroke(random(255), random(255), random(255));
+      fill(0, random(200, 255), random(90), 10);
       ellipse(pos.x, pos.y + 50, shieldW, shieldH);
       shieldW+=1;
       shieldH+=2;
@@ -442,13 +436,13 @@ class Player extends GameObject
       shieldSound.play();
       pain.pause();
       if(shield > 530)
-        {
-          fill(255,255,255);
-          textSize(25);
-          textFont(font2);
-          text("SHIELD!", pos.x + 80, pos.y);
-          
-        }
+      {
+        fill(255,255,255);
+        textSize(25);
+        textFont(font2);
+        text("SHIELD!", pos.x + 80, pos.y);
+        
+      }
       
       health = 100;
       
@@ -458,8 +452,7 @@ class Player extends GameObject
         shieldH = 250;        
       }
       shield--;
-      
-      
+        
     }
     if(jetFuel > 0)
     {
@@ -505,7 +498,7 @@ class Player extends GameObject
     }
     
     if(health < 0)
-    { 
+    { //reset player
       score2 = score;
       pos.x = 100;
       pos.y = height - 250;

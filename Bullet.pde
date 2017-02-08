@@ -1,28 +1,26 @@
 class Bullet extends GameObject
 {
-  float theta;
   float size;
   float speed = 10;
   float timeTolive;
   float alive;
   PVector forward;
-  char fire;
-  float rotation;
+  float direction;
   PShape gun;
   PShape back;
   PShape middle;
   PShape front;
   PShape tail;
   
-  Bullet(float x, float y, float theta, float size, float timeTolive)
+  Bullet(float x, float y, float size, float timeTolive)
   {
-    this.theta = theta;
+    
     this.size = size;
     this.timeTolive = timeTolive;
     this.alive = 0;
     pos = new PVector(x, y);
     forward = new PVector(mouseX, mouseY);
-    rotation = atan2(forward.y - pos.y, forward.x - pos.x) / radians(180) * 180;
+    direction = atan2(forward.y - pos.y, forward.x - pos.x) / radians(180) * 180;
   }
   
   void render()
@@ -49,10 +47,9 @@ class Bullet extends GameObject
   void update()
   {
     
-    pos.x = pos.x + cos(rotation/180*PI) * speed;
-    pos.y = pos.y + sin(rotation/180*PI)* speed;
+    pos.x = pos.x + cos(direction/180*PI) * speed;
+    pos.y = pos.y + sin(direction/180*PI)* speed;
     
-    //pos.add(PVector.mult(forward, speed));
     timeTolive--;
     if(timeTolive < 0)
     {

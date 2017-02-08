@@ -25,6 +25,7 @@ void bounceBall()
   y = y + speed;
   x = x + velocity;
   
+  
   speed = gravity + speed;
   velocity+=0.0001 * mass;
   

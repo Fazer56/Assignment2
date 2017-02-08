@@ -27,12 +27,6 @@ class Boss extends GameObject
     
   }
   
- /* Boss(float x, float y, float mass)
-  {
-    this(x, y, 1, 0, 0, mass, ' ', ' ', ' ', ' ', ' ' );
-    create();
-  } */
-  
   void create()
   {
     bot = createShape(GROUP);
@@ -111,9 +105,7 @@ class Boss extends GameObject
           
         }
       }
-      
     }//end gameObjects for()
-    
     if(health < 0)
     {
       Blood bl = new Blood(pos.x, pos.y, 120);
@@ -129,11 +121,9 @@ class Boss extends GameObject
       winning.rewind();
       winning.play();
       score2 = score;
-      score = 0;
-      
-     
+      score = 0; 
     }
-
+  
   }//end update
   
 }

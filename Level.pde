@@ -1,7 +1,6 @@
 class Level extends GameObject
 {
-  float levelWidth;
-  color background;
+
   PShape clouds;
   PShape cloud1;
   PShape cloud2;

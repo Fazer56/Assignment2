@@ -1,6 +1,5 @@
 class Block extends GameObject
 {
-  
   float blockW;
   float blockH;
   
@@ -32,6 +31,4 @@ class Block extends GameObject
   {
         
   }
-  
-  
 }

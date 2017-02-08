@@ -1,7 +1,5 @@
 class Enemy extends GameObject
 {
-  
-  PVector playerPos;
   float angle;
   PShape body;
   PShape wing1;
@@ -16,13 +14,11 @@ class Enemy extends GameObject
   {
   }
   
-  Enemy(float x1, float y1, float x2, float y2, float live, float speed)
+  Enemy(float x1, float y1, float live, float speed)
   {
     this.speed = speed;
     this.timeTolive = live; 
     pos = new PVector(x1, y1);
-    playerPos = new PVector(x2, y2);
-    //this.angle = atan2(pos.y - playerPos.y, pos.x - playerPos.x) / /*radians(180)*/ PI * 180;
     create();
   }
    
@@ -56,8 +52,6 @@ class Enemy extends GameObject
   
   void update()
   {
-    /*pos.x = pos.x - cos(angle/180 * PI) * 5;
-    pos.y = pos.y - sin(angle/180 * PI) * 5;*/
     
     timeTolive--;
     if(timeTolive < 0)
@@ -71,9 +65,9 @@ class Enemy extends GameObject
       if(go instanceof Player)
       {
         Player p = (Player) go;
-        angle = atan2(pos.y - p.pos.y, pos.x - p.pos.x)  / /*radians(180)*/ PI * 180;
-        pos.x = pos.x - cos(angle/180 * PI) * 5;
-        pos.y = pos.y - sin(angle/180 * PI) * 5;
+        angle = atan2(pos.y - p.pos.y, pos.x - p.pos.x)  / PI * 180;
+        pos.x = pos.x - cos(angle/180 * PI) * speed;
+        pos.y = pos.y - sin(angle/180 * PI) * speed;
       }
       
       if(go instanceof Bullet)
