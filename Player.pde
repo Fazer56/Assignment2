@@ -194,6 +194,8 @@ class Player extends GameObject
       line(cx1 + 5 , cy1, pos.x - 45, pos.y + 170);
       line(cx1 , cy1, pos.x - 40, pos.y + 170);
       
+      textSize(40);
+      textFont(font);
       text("Score: " + score, pos.x - 500, 90);
       
       if(upCheck == false)
@@ -301,7 +303,7 @@ class Player extends GameObject
           gameObjects.remove(go);
           score++;
           
-        }
+        }       
         
       }
       
@@ -389,6 +391,14 @@ class Player extends GameObject
       strokeWeight(3);
       //shield.rewind();
       //shield.play();
+      if(shield > 530)
+        {
+          fill(0);
+          textSize(25);
+          textFont(font2);
+          text("SHIELD!", pos.x + 80, pos.y);
+          
+        }
       
       health = 100;
       
@@ -412,6 +422,18 @@ class Player extends GameObject
         triangle(pos.x - 30, pos.y + 100, pos.x - 45, pos.y + 85, pos.x -15 , pos.y + 85);
         gameObjects.add(j);
         jetFuel--;
+        jet.rewind();
+        jet.play();
+        
+        if(jetFuel > 230)
+        {
+          fill(0);
+          textSize(25);
+          textFont(font2);
+          text("JETPACK!", pos.x + 80, pos.y);
+          
+        }
+        
         
         if(pos.y < height - 900)
         {
@@ -432,10 +454,13 @@ class Player extends GameObject
     }
     
     if(health < 0)
-    {
+    { 
       pos.x = 100;
       health = 100;
+      ammo = 10;
       score = 0;
+      GameOver g = new GameOver(pos.x - 1000, pos.y - 500, 240);
+      gameObjects.add(g);
     }
  }
   

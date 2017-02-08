@@ -3,6 +3,7 @@ void setup()
 {
    //size(1000, 800, P3D);
    fullScreen(P3D);
+   font2 = loadFont("ARDESTINE-48.vlw");
    font = loadFont("ARDELANEY-48.vlw");
    img = loadImage("BounceFinal.png");
    img2 = loadImage("back.png");
@@ -15,7 +16,7 @@ void setup()
    reload = minim.loadFile("reload.wav");
    scream = minim.loadFile("Scream.wav");
    pain = minim.loadFile("Pain.wav");
-  
+   jet = minim.loadFile("jet2.mp3");
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 110, 50);
@@ -28,7 +29,7 @@ void setup()
    Block b7 = new Block(b.pos.x - 110, height - 170, 110, 50);
    Block b8 = new Block(3000, height - 800, 110, 50);
    Shield shield = new Shield( 1200, height - 850);
-   
+   //Boss boss = new Boss(800, height -200, 50);
    
    Block[] blocks = new Block[40];
    
@@ -57,6 +58,8 @@ void setup()
    gameObjects.add(b7);
    gameObjects.add(e);
    gameObjects.add(b8);
+   //gameObjects.add(boss);
+   
    gameObjects.add(shield);
    
 }
@@ -69,10 +72,11 @@ AudioPlayer shotgun;
 AudioPlayer reload;
 AudioPlayer scream;
 AudioPlayer pain;
+AudioPlayer jet;
 
 int score = 0;
 PImage img, img2;
-PFont font;
+PFont font, font2;
 int gameState = 2;
 float imgY = 0;
 
