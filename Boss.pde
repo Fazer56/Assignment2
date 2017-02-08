@@ -125,7 +125,7 @@ class Boss extends GameObject
       gameObjects.remove(this);
       winning.rewind();
       winning.play();
-      
+
       
       
     }
