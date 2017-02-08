@@ -1,3 +1,13 @@
+/*
+  Sememster 1 Christmas OOP assignment
+  Student Number: C15380201
+  Name: Faoilean Fortune
+  Date: 08/02/2017
+  Shooting Game
+
+*/
+
+
 void setup()
 {
    //size(1000, 800, P3D);
