@@ -13,16 +13,19 @@ class GameOver extends GameObject
     pushMatrix();
     translate(pos.x, pos.y);
     fill(0);
-    rect(0, 0, width, height);
+    rect( -50, -100, 1500, 1500);
+    textFont(font);
     textSize(40);
     fill(255,255,255);
     text("GAME OVER!", 300, 300);
+    text("SCORE : " + score2, 300, 500);
     popMatrix();
   }
   
   void update()
   {
     timeTolive--;
+    gameOver--;
     
     if(timeTolive < 0)
     {

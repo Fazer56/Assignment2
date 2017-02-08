@@ -470,12 +470,20 @@ class Player extends GameObject
     
     if(health < 0)
     { 
+      score2 = score;
       pos.x = 100;
+      pos.y = height - 250;
       health = 100;
       ammo = 10;
       score = 0;
-      GameOver g = new GameOver(pos.x - 1000, pos.y - 500, 240);
+      GameOver g = new GameOver(pos.x - 1000, pos.y - 500, 180);
       gameObjects.add(g);
+      if(gameOver < 0)
+      {
+        health = 100;
+        
+      }
+      
     }
  }
   

@@ -75,6 +75,8 @@ AudioPlayer pain;
 AudioPlayer jet;
 
 int score = 0;
+int score2 = 0;
+int gameOver = 230;
 PImage img, img2;
 PFont font, font2;
 int gameState = 2;
