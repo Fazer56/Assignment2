@@ -51,6 +51,7 @@ class Player extends GameObject
   int jetFuel;
   float shieldW;
   float shieldH;
+
   
   Player(float x, float y, int lives, float theta, float aimTheta, float mass, char up, char down, char left, char right, char fire)
   {
@@ -67,7 +68,7 @@ class Player extends GameObject
     this.theta = theta;
     this.aimTheta = aimTheta;
     this.ammo = 10;
-    this.health = 5 /*100*/;
+    this.health = 100;
     this.shield = 0;
     this.shieldW = 0;
     this.shieldH = 0;
@@ -440,8 +441,8 @@ class Player extends GameObject
       shieldW+=1;
       shieldH+=2;
       strokeWeight(3);
-      //shield.rewind();
-      //shield.play();
+      shieldSound.rewind();
+      shieldSound.play();
       pain.pause();
       if(shield > 530)
         {

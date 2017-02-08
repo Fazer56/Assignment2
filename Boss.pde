@@ -107,7 +107,7 @@ class Boss extends GameObject
         if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < 80)
         {
           gameObjects.remove(go);
-          health-=10;
+          health-=20;
           
         }
       }
@@ -118,9 +118,14 @@ class Boss extends GameObject
     {
       Blood bl = new Blood(pos.x, pos.y, 120);
       Blood bl2 = new Blood(pos.x + 40, pos.y, 120);
+      dead.rewind();
+      dead.play();
       gameObjects.add(bl);
       gameObjects.add(bl2);
       gameObjects.remove(this);
+      winning.rewind();
+      winning.play();
+      
       
       
     }

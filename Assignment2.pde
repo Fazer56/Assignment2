@@ -17,9 +17,12 @@ void setup()
    pain = minim.loadFile("Pain.wav");
    jet = minim.loadFile("jet2.mp3");
    boss = minim.loadFile("Laugh.wav");
+   dead = minim.loadFile("zomb.wav");
+   shieldSound = minim.loadFile("shield.wav");
+   winning = minim.loadFile("win.wav");
    
-  tune.rewind();
-  tune.play();
+    tune.rewind();
+    tune.play();
    
    Player player1 = new Player(100, height-250, 2, 0, 0, 50, 'w', ' ', 'a', 'd', 's');
    Block b = new Block(0, height - 170, 110, 50);
@@ -77,13 +80,16 @@ AudioPlayer scream;
 AudioPlayer pain;
 AudioPlayer jet;
 AudioPlayer boss;
+AudioPlayer dead;
+AudioPlayer shieldSound;
+AudioPlayer winning;
 
 int score = 0;
 int score2 = 0;
 int gameOver = 230;
 PImage img, img2;
 PFont font, font2;
-int gameState = 2;
+int gameState = 0;
 float imgY = 0;
 
 ArrayList <GameObject> gameObjects = new ArrayList <GameObject>();
@@ -161,10 +167,7 @@ void draw()
 }
 
 void running()
-{      
-    
-      
-       
+{          
     for( int i  = 0; i < gameObjects.size(); i++)
     {
       GameObject go = gameObjects.get(i);
@@ -174,7 +177,7 @@ void running()
     if(frameCount % 120 == 0)
     {
       Level c = new Level();
-      c.pos =new PVector(random(5000), random(45, height/2.5));
+      c.pos =new PVector(random(2000), random(45, height/2.5));
       gameObjects.add(c);
       
       //gameObjects.remove(c);

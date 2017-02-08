@@ -13,7 +13,7 @@ class Level extends GameObject
   
   Level()
   {
-    timeTolive = 600;
+    timeTolive = 300;
     direction = (int) random(0, 1);
   }
   
@@ -22,7 +22,7 @@ class Level extends GameObject
      pushMatrix();
      translate(pos.x, pos.y);
      clouds = createShape(GROUP);
-    fill(255,255,255);
+    fill(237,237,237);
     noStroke();
     cloud1 = createShape(ELLIPSE, 0, 0, 80, 80);
     cloud2 = createShape(ELLIPSE, 0, 40, 80, 80);
