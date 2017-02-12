@@ -162,6 +162,7 @@ class Player extends GameObject
     fill(255,0,0);
     rect(-50, -70, health, 20);
     fill(0);
+    guns();
     text(ammo, -90, -90);
     fill(0);
 
