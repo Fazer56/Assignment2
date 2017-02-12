@@ -48,7 +48,7 @@ void bounceBall()
   } 
   
   float x = 500;
-  float y = 300;
+  float y = 250;
   
    for(int i = 0; i < insts.size(); i++)
    {

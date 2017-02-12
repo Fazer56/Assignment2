@@ -12,12 +12,14 @@ class JetPack extends GameObject implements Powerup
   JetPack(float x, float y)
   {
     pos = new PVector(x, y);
+    create();
   }
   
   JetPack(float x, float y, int live)
   {
     this.timeTolive = live;
     pos = new PVector(x, y);
+    create();
   }
   
   void applyTo(Player p)
@@ -25,10 +27,8 @@ class JetPack extends GameObject implements Powerup
     p.jetFuel = 300;
   }
   
-  void render()
+  void create()
   {
-    pushMatrix();
-    translate(pos.x, pos.y);
     gun = createShape(GROUP);
     fill(255, 0, 0);
     top = createShape(ARC, 0, -30, 25, 25, radians(180), radians(360));
@@ -57,6 +57,13 @@ class JetPack extends GameObject implements Powerup
     gun.addChild(back);
     gun.addChild(middle);
     gun.addChild(top);
+    
+  }
+  
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
     shape(gun);
     popMatrix();
 
@@ -81,4 +88,4 @@ class JetPack extends GameObject implements Powerup
     strokeWeight(3);
   }
   
-}
+}//end of class

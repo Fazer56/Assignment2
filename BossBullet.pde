@@ -16,13 +16,13 @@ class BossBullet extends GameObject
     pos = new PVector(x, y);
     playerP = new PVector(x1, y1);
     this.direction = atan2(pos.y - playerP.y, pos.x - playerP.x) / PI * 180;
+    
+    create();
   }
   
-  void render()
+  void create()
   {
-    pushMatrix();
-    translate(pos.x, pos.y);
-     gun = createShape(GROUP);
+    gun = createShape(GROUP);
     fill(0);
     back = createShape(TRIANGLE, 0, 0, 15, -15, 15, 15);
     fill(0, 0, 255);
@@ -35,6 +35,12 @@ class BossBullet extends GameObject
     gun.addChild(back);
     gun.addChild(middle);
     gun.addChild(front);
+  }
+  
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
     shape(gun);
     popMatrix();
   }

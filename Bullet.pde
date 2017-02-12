@@ -21,13 +21,12 @@ class Bullet extends GameObject
     pos = new PVector(x, y);
     forward = new PVector(mouseX, mouseY);
     direction = atan2(forward.y - pos.y, forward.x - pos.x) / radians(180) * 180;
+    create();
   }
   
-  void render()
+  void create()
   {
-    pushMatrix();
-    translate(pos.x, pos.y);
-     gun = createShape(GROUP);
+    gun = createShape(GROUP);
     fill(0);
     back = createShape(TRIANGLE, 0, 0, -15, 15, -15, -15);
     fill(255,random(255),255);
@@ -40,6 +39,12 @@ class Bullet extends GameObject
     gun.addChild(back);
     gun.addChild(middle);
     gun.addChild(front);
+  }
+  
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
     shape(gun);
     popMatrix();
   }

@@ -102,7 +102,7 @@ class Boss extends GameObject
         if(dist(this.pos.x, this.pos.y, go.pos.x, go.pos.y) < 80)
         {
           gameObjects.remove(go);
-          health-=20;
+          health-=5;
           
         }
       }

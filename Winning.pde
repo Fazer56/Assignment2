@@ -11,9 +11,9 @@ class Winning extends GameObject
   void render()
   {
     pushMatrix();
-    translate(pos.x, pos.y);
+    translate(pos.x, pos.y, 0);
     fill(255,255,255);
-    rect( 200, -200, 500, 500);
+    rect( 200, -200, 800, 500, 500);
     textFont(font);
     textSize(40);
     fill(random(255),random(255),random(255));

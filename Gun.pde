@@ -11,26 +11,19 @@ class Gun extends GameObject implements Powerup
   Gun(float x, float y)
   {
     pos = new PVector(x, y);
+    create();
   }
   
   Gun(float x, float y, int live)
   {
     this.timeTolive = live;
     pos = new PVector(x, y);
+    create();
     
   }
   
-  void applyTo(Player p)
+  void create()
   {
-    p.ammo+=5;
-    reload.rewind();
-    reload.play();
-  }
-  
-  void render()
-  {
-    pushMatrix();
-    translate(pos.x, pos.y);
     gun = createShape(GROUP);
     fill(0);
     back = createShape(TRIANGLE, 0, 0, -15, 15, -15, -15);
@@ -44,6 +37,19 @@ class Gun extends GameObject implements Powerup
     gun.addChild(back);
     gun.addChild(middle);
     gun.addChild(front);
+  }
+  
+  void applyTo(Player p)
+  {
+    p.ammo+=5;
+    reload.rewind();
+    reload.play();
+  }
+  
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
     shape(gun);
     popMatrix(); 
   }

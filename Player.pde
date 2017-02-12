@@ -32,10 +32,11 @@ class Player extends GameObject
   PShape wheel1;
   PShape wheel2;
   PShape body;
-  PShape leg;
+  PShape brow;
   PShape gun;
-  PShape lights;
-  PShape box;
+  PShape pupil;
+  PShape eye;
+  PShape mouth;
   PShape battery;
   char up, down, left, right, fire;
   int jumpTime;
@@ -75,16 +76,24 @@ class Player extends GameObject
     
     
     create();
+    guns();
   }
   
   void create()
   {
       
       ship = createShape(GROUP);
+      fill(0, 255, 255);
+      pupil = createShape(ELLIPSE, 20, 00, pMass/6, pMass/6);
+      strokeWeight(4);
+      brow = createShape(LINE, 20, -10, 0, -10);
+      mouth = createShape(LINE, 20, 25, 0, 15);
+      strokeWeight(3);
       fill(255, 255, 255);
       pod = createShape(ELLIPSE, 00, 00, pMass, pMass + 20); //createShape(ELLIPSE, 80, 80, mass, mass + 20);
       body = createShape(RECT, -15, 35, pMass-20, pMass+ 40);
       fill(0);
+      eye = createShape(ELLIPSE, 20, 00, pMass/3, pMass/3);
       gun1 = createShape(ELLIPSE, 00, 60, pMass/2 + 5, pMass/2 + 5); // PShape gun1 = createShape(ELLIPSE, mass, mass + 90, mass/2, mass/2);
       fill(255,0,0);
       gun2 = createShape(RECT, 15, 50, pMass-20, pMass/4); //PShape gun2 = createShape(RECT, mass + mass/5, mass*2, mass -20, mass/4);
@@ -113,22 +122,14 @@ class Player extends GameObject
       ship.addChild(wheel1);
       ship.addChild(wheel2);
       ship.addChild(battery);
+      ship.addChild(eye);
+      ship.addChild(pupil);
+      ship.addChild(brow);
+      ship.addChild(mouth);
   }
   
-  
-  void render()
+  void guns()
   {
-    pushMatrix();
-    translate(pos.x, pos.y);
-    textFont(font);
-    textSize(30);
-    noFill();
-    rect(-50, -70, 100, 20);
-    fill(255,0,0);
-    rect(-50, -70, health, 20);
-    fill(0);
-    text(ammo, -90, -90);
-    fill(0);
     PShape gun;
     PShape back;
     PShape middle;
@@ -148,6 +149,22 @@ class Player extends GameObject
     gun.addChild(middle);
     gun.addChild(front);
     shape(gun);
+  }
+  
+  void render()
+  {
+    pushMatrix();
+    translate(pos.x, pos.y);
+    textFont(font);
+    textSize(30);
+    noFill();
+    rect(-50, -70, 100, 20);
+    fill(255,0,0);
+    rect(-50, -70, health, 20);
+    fill(0);
+    text(ammo, -90, -90);
+    fill(0);
+
     noFill();
     fill(255,255,0);
     rect(-50, -160, jetFuel/6, 20);
@@ -200,10 +217,8 @@ class Player extends GameObject
         {
           jumpSound.rewind();
           jumpSound.play();
-       
           bounce = true;
           upCheck = true;
-       
         }
         
       }
@@ -257,6 +272,12 @@ class Player extends GameObject
     if(pos.x > 1800)
     {
       pos.x = 1800;
+      
+    }
+    
+    if(pos.x < 90)
+    {
+      pos.x = 90;
       
     }
     
@@ -319,7 +340,11 @@ class Player extends GameObject
       }
       if(go instanceof Block)
       {
-        
+        if(pos.x > go.pos.x + 400)
+        {
+         // gameObjects.remove(go);
+          
+        }
         if(bounce == false)
         {
           if(grav == false && jetFuel <= 0)
@@ -332,7 +357,6 @@ class Player extends GameObject
           }
           if(grav == true && jetFuel <= 1)
           {
-            
              pos.y = pos.y +.5;
             if(pos.y >= height - 350)
              {
@@ -352,6 +376,7 @@ class Player extends GameObject
           pain.rewind();
           pain.play();
           this.health-=2;
+          this.pos.x-=2;
           gameObjects.remove(e);  
         } 
       }
@@ -363,6 +388,7 @@ class Player extends GameObject
            pain.rewind();
            pain.play();
            this.health-=5;
+           this.pos.x-=2;
            gameObjects.remove(bb);
            
          }
@@ -374,7 +400,7 @@ class Player extends GameObject
     //increasing the spawn rate and speed of enemies when a certain point in the level has been reached
     if(pos.x > 700)
     { 
-      if(frameCount % 60 == 0)
+      if(frameCount % 120 == 0)
       {
         
         Enemy e = new Enemy(random(pos.x + 300, pos.x + 1000), height/2, 600, 8);
@@ -417,7 +443,7 @@ class Player extends GameObject
       
     }
     
-    if(pos.x % 200 == 0 && pos.x < 1600)
+    if(pos.x % 300 == 0 && pos.x < 1600)
     {
       Gun ammo = new Gun(random(pos.x + 300, pos.x + 350), random(height - 300, height - 450), 200);
       gameObjects.add(ammo);
